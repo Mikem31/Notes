@@ -1,0 +1,58 @@
+
+
+Python libraries
+  OpenVX
+  Bluepy
+
+GPIO libraries
+  RPi.GPIO
+  gpiozero
+  WiringPi
+  pigpio
+  
+Builtin apps
+  Node-RED
+  SD Card Copier
+  Geany text editor
+  SmartSim
+  
+
+Hardware/project ideas
+  sense hat
+  BME280 humidity sensor
+  CV and OCR                https://github.com/wazcov/devscover-youtube/tree/master/scrabble
+  IOT Ubuntu appliance      https://www.raspberrypi.org/blog/build-an-iot-device-with-ubuntu-appliance-and-raspberry-pi/
+
+
+https://www.raspberrypi.org/blog/desktop-sense-hat-emulator/
+
+
+Node-RED -  run the Node-RED application from Programming in the main menu, 
+              and then use the web browser to access port 1880 at your Pi’s own address
+              to see the editor.
+
+
+
+OS
+  Kali Linux RaspberryPi 2, 3 and 4 	2020.2b 	2.1G 	ed74ac61c23122daa47761ec43d72d51332acb93ffaa19cf896ae9032efc1c49
+
+
+
+Links
+
+https://www.seeedstudio.com/blog/2020/02/27/raspberry-pi-4-2gb-now-only-35-on-sale-now/
+https://www.seeedstudio.com/blog/2020/02/25/which-raspberry-pi-programming-language-should-you-use-comparison-guide/
+https://www.seeedstudio.com/blog/2020/02/19/how-to-use-raspberry-pi-gpio-pins-python-tutorial/
+https://www.seeedstudio.com/blog/2020/06/03/learn-all-about-the-raspberry-pi/
+
+https://www.seeedstudio.com/blog/2020/01/14/how-to-create-and-run-a-raspberry-pi-python-program-beginners-tutorial/
+https://www.seeedstudio.com/blog/2019/12/24/how-to-build-a-raspberry-pi-4-nas-server-samba-and-omv/
+https://www.seeedstudio.com/blog/2019/12/04/raspberry-pi-4-model-b-review-55-desktop-replacement/
+https://www.seeedstudio.com/blog/2020/06/08/what-can-you-do-with-8gb-ram-on-a-raspberry-pi-4-m/
+
+https://www.seeedstudio.com/blog/2019/09/29/top-20-best-raspberry-pi-4-projects-that-you-must-try-now/
+https://www.seeedstudio.com/blog/2019/12/25/raspberry-pi-tutorials-guides-and-projects/
+
+Power Your Raspberry Pi Zero with a Battery Using the JuiceBox Zero   https://www.youtube.com/watch?v=EVKDaiLDG20
+
+

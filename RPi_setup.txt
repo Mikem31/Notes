@@ -1,0 +1,56 @@
+﻿
+format SD card with SD Card Formatter
+download Raspberry Pi OS img file
+install img using Win32 Disk Imager or balenaEtcher
+
+3 files in /boot before powering up
+  /etc/wpa_supplicant/wpa_supplicant.conf         config wireless SSID
+  ssh                                             empty file will enable SSH on boot
+  config.txt
+    enable_uart=1                                 allow comm with USB console cable for troubleshooting
+
+right click on wifi to access network config GUI
+
+sudo raspi-config
+  change password
+  Network Options
+    change hostname
+    add SSID
+    set static IP addresses for eth0 and wlan0          
+      /etc/dhcpcd.conf
+        
+  Localization Options
+    change locale to en-US
+    change time zone to Eastern
+  Interfacing Options
+    SSH
+    VNC
+    SPI                                           Serial Peripheral Interface
+    I2C                                           ARM Inter Integrated Circuit (synchronous serial)
+  Advanced Options
+    Overscan
+    Resolution
+    
+
+VNC on Zero (make sure using Service Mode)  
+  you have to disable encryption
+    edit /root/.vnc/config.d/vncserver-x11
+      Authentication=VncAuth
+      Encryption=AlwaysOff
+  
+    Options > Expert > Encryption=AlwaysOff
+    
+  sudo systemctl start vncserver-x11-serviced.service     start VNC server
+  sudo systemctl stop vncserver-x11-serviced.service      stop VNC server
+
+  
+
+
+
+WinSCP    enable show hidden files (?)
+  
+
+ip link                   see what network interfaces exist
+wpa_passphrase            generate PSK from password
+
+

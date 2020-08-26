@@ -1,0 +1,35 @@
+
+to do:
+  change startup location of notebook dashboard
+  Help:User Interface Tour of notebooks
+  multiple installs of jupyter (python module and Anaconda)
+
+
+tutorials
+  Jupyter tutorial              https://www.datacamp.com/community/tutorials/tutorial-jupyter-notebook
+  data version control          https://realpython.com/preview/python-data-version-control/
+  keyboard shortcuts            https://towardsdatascience.com/jypyter-notebook-shortcuts-bf0101a98330
+  markdown                      https://daringfireball.net/projects/markdown/
+  Corey Jupyter                 https://www.youtube.com/watch?v=HW29067qVWk
+
+
+Anaconda                  3 different repos to get packages from 
+  Anaconda Navigator
+  Anaconda Powershell
+  Anaconda Prompt
+  Jupyter Notebook        interactive env w/ code execution, rich text, math, plots, and rich media
+                          add working dir to launcher target
+                          use Quit to close command prompt window
+  Spyder                  Scientific Python Development Environment
+  IPython                 Interactive Python
+
+JupyterLab
+
+Apache Zeppelin
+
+
+
+
+
+
+

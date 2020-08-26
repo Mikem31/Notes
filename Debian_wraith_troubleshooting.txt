@@ -1,0 +1,4 @@
+
+boot to recovery mode
+skip root login
+there is an error

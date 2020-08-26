@@ -1,0 +1,35 @@
+Exercises:
+Crash Course  exceptions  10-6 to 10-10
+              code tests  11-1, 11-2 & 11-3
+ATBS          CH 6 - Practice Projects (zombie dice bots)
+              CH 7 - Project: Phone Number and Email Address Extractor
+              CH 7 - Practice Projects
+              CH 9 - Project: Generating Random Quiz Files
+              CH 9 - Project: Updatable Multi-Clipboard
+              CH 10 - Project: Renaming Files with American-Style Dates
+              CH 10 - Project: Backing Up a Folder into a ZIP File
+              CH 11 - Debugging Coin Toss (try with different IDEs)
+
+
+Hitchhikers guide to python
+
+Writing Great Python Code
+This part of the guide focuses on the best-practices for writing Python code.
+ 
+Structuring Your Project
+
+Code Style
+Reading Great Code
+Documentation
+Testing Your Code
+Logging
+Common Gotchas
+Choosing a License
+ 
+
+Shipping Great Python Code
+This part of the guide focuses on sharing and deploying your Python code.
+
+Publishing Your Code
+Packaging Your Code
+Freezing Your Code

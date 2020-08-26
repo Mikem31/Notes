@@ -1,0 +1,13 @@
+
+DISPLAY MANAGER
+lightdm
+gdm3
+
+DESKTOP ENVIRONMENTS
+KDE Plasma
+System X11 Default
+Mate                        - green and clean
+Cinnamon - ClipIt history saved as plain text file
+LXDE                        - Win98 menu, lightweight
+xfce                        - Apple-like (?)
+

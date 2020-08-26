@@ -1,0 +1,27 @@
+
+https://www.riverbankcomputing.com/static/Docs/PyQt5/
+https://medium.com/@PanjiBrotoisworo/building-a-python-gui-with-pyqt-designer-987f8a400bdf
+
+https://machinekoder.com/pyqt-vs-qt-for-python-pyside2-pyside/
+
+You have four main options for designing the UI:
+
+    Write out the code to build the UI manually. This means manually creating each widget
+     and laying them out through creating objects in code.
+
+    Build the layout in Qt Designer, save it to a .ui file, then load that from code. 
+    Both PyQt5 and PySide2 have functions that allow you to dynamically load a .ui file 
+    from disk and build a window from it.
+
+    Build the layout in Qt Designer, save it to a .ui file and translate that .ui file 
+    to Python code using a tool like pyuic5 (PyQt5) or pyside2-uic (PySide2). Those tools
+     take a .ui file and produce an importable Python file that basically does what you 
+     would do manually in option (1).
+
+    Write out the layout in a declarative language called QML and load it dynamically.
+
+create .ui file
+convert .ui file to .py
+  pyuic5 -x firstgui.ui -o firstgui.py
+
+

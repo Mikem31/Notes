@@ -1,0 +1,32 @@
+
+\d+(,)?(\d+)?(,)?(\d+)
+\d+(,)?(\d{3})?(,)?(\d{3})?
+(\d{1,3})(,)?(\d{3})?(,)(\d{3})?
+42
+1,234
+6,368,745
+
+not these:
+12,34,567
+1234
+
+[A-Z][a-z]+\s+Watanabe
+Haruto Watanabe
+Alice Watanabe
+RoboCop Watanabe
+
+
+(Alice|Bob|Carol)\s(eats|pets|throws)\s(apples|cats|baseballs)
+
+Alice eats apples.
+Bob pets cats.
+Carol throws baseballs.
+Alice throws Apples.
+BOB EATS CATS.
+
+but not the following:
+
+RoboCop eats apples.
+ALICE THROWS FOOTBALLS.
+Carol eats 7 cats.
+

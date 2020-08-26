@@ -1,0 +1,54 @@
+
+change the DE's available in lightdm/gdm
+
+
+******************** CONFIGURATION FILES ********************
+raspi-config
+vsftpd.conf
+/etc/dhcpcf.conf
+
+~/.ssh/known_hosts
+
+/etc/profile    - global startup for login shells
+~/.profile
+
+/etc/bash.bashrc    - global script for non-login shell
+~/.bashrc
+
+/etc/vimrc      - global vim config
+
+/etc/adduser.conf   -
+/etc/skel       - files & dirs created for any new users
+                - what permissions?
+/etc/cups       - printer-related
+/etc/sudoers    - list of users/groups who can run sudo (visudo command to edit)
+/etc/passwd     - user account info (vipw)
+/etc/shadow     - secure account info (user authentication)
+/etc/group      - group account members and info
+/etc/gshadow    - secure group account info
+/etc/login.defs - shadow password suite config
+/etc/fstab      - list of devs to be mounted at boot time
+/etc/fstab.d    - contains indiviual config files (one for each file system)
+/etc/mtab       - system runtime mount database
+/etc/ntp.conf   - network time config
+/etc/shells     - list of installed login shells
+
+/etc/network            - basic network config for Debian
+/etc/sysconfig/network  - Fedora and SUSE
+
+
+/etc/X11/xorg.conf                  - congif file for X server
+/etc/X11/default-display-manager    -
+sudo dpkg-reconfigure CURRENT_DISPLAY_MANAGER
+/usr/share/xsessions                - all currently installed desktop environments
+
+/etc/apt/source.list    - list of repositories to check
+
+/usr/share/xsessions    - installed desktop environments
+
+automatic installation config file
+    Kickstart   - Red Hat
+    Preseed     - Debian
+    AutoYAST    - SUSE
+
+network time protocol (NTP) - set local time via internet servers

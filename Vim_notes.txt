@@ -1,0 +1,40 @@
+
+h,j,k,l     - move cursor
+:w          - save/write
+:q          - quit Vim
+:wq         - save/write and quit Vim (can also use :ZZ)
+:q!         - quit without saving
+
+i           - insert before cursor
+a           - append after the cursor
+O           - insert on prev line
+o           - insert on next line
+A           - append at the end of the line
+
+w           - go to begin of next word
+e           - go to end of next word
+0           - go to beginning of line
+$           - go to end of line
+
+****************************************
+x           - delete under cursor
+dw          - delete from cursor to beginning of next word
+de          - delete from cursor to end of word
+d0          - delete from cursor to beginning of line
+d$          - delete from cursor to end of line
+dd          - delete the entire line
+
+y           - yank or copy whatever is selected
+yy          - yank or copy the current line
+p           - paste the copied text before the cursor
+
+u           - undo last command
+ctrl + U    - undo every change on a line
+ctrl + R    - redo (undo the undo's)
+
+
+
+
+change command      - operator number motion
+d2          - delete motion twice
+

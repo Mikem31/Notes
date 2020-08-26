@@ -1,0 +1,42 @@
+
+create report
+write to HTML
+open with Firefox
+-------------------------------
+use shuf to simulate coin flip
+grep heads | wc -l
+and
+grep tails | wc -l
+
+tee command ?
+
+-------------------------------
+WRITE MAN PAGES TO PostScript FILES
+zcat /usr/share/man/man1/FILE.#.gz | groff -mandoc > ~/Desktop/FILE.ps
+
+ps2pdf ~/Desktop/FILE.ps ~/Desktop/FILE.pdf
+-------------------------------
+back config files to vboxshare
+
+still needs:
+
+check for any prev backups
+rename those with "_old" suffix
+
+-------------------------------
+youtube-dl              DONE
+
+ask for link to YT video
+accept input into a variable (?)
+run -F option with that variable        - youtube-dl F $1
+display available formats
+accept input into a variable            - used read to write format code to variable
+download movie                          - run yt-dl -f with read variable
+-------------------------------
+
+                        DONE
+shell func for preparing shell script
+touch $VAR1
+chmod 700 $VAR1
+vim $VAR1
+-------------------------------

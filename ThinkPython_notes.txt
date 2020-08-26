@@ -1,0 +1,295 @@
+Exercise to complete:
+lists - http://greenteapress.com/thinkpython2/html/thinkpython2011.html#sec128
+dicts - http://greenteapress.com/thinkpython2/html/thinkpython2012.html#sec139
+
+
+
+Chapter 1
+
+Chapter 2 - variable, expressions and statements
+
+variable                    a name that refers to a value
+                            implicitly declared by defining them
+                            they are local, if not otherwise declared
+                              
+                            can't begin  with a number
+                            no spaces
+                            no hyphens and most special chars
+state diagram               var --> value or expression
+
+initialized
+
+expression                  combination of values, variables and operators
+                            they are evaluated
+
+statement                   unit of code that has an effect
+                            i.e. create or display a value
+  assignment statement      creates a new variable and gives it a value
+
+PEDMAS                        operators with the same precedence eval left to right
+    P
+    E
+    DM
+    AS
+  exponent                    **
+  modulus/remainder           %
+  integer division            //
+  division                    /
+  multiplication              *
+  addition                    +
+  subtraction                 -
+
+debugging
+3 kinds of errors
+  syntax                    refers to the structure of the program
+  runtime / exceptions      does not appear until after the program has started
+  semantic                  runs without errors, but will not do what's intended
+  
+Python keywords
+False      class      finally    is         return
+None       continue   for        lambda     try
+True       def        from       nonlocal   while
+and        del        global     not        with
+as         elif       if         or         yield
+assert     else       import     pass
+break      except     in         raise
+
+Chapter 3 - Functions
+
+function          a named sequence of statements that perform a computation
+  define          
+  call            statement that runs a function
+  argument        variables/expressions that are passed into a function
+  parameter       name inside function that refers to arguments passed into the function
+  return value
+  
+  header          first line of a function definition
+  body            statements inside a function definition
+  
+  function object 
+  
+  pass            used for empty functions to avoid an exception
+  
+  arg
+  kwarg           keyword argument
+  *arg            unpack passed arg
+  **kwarg         unpack passed kwarg
+  
+  """ ... """     docstring; documents what a function or class is supposed to do
+  
+  
+  
+
+stack diagram     show the value of vars and which function they belong to
+                  each function is represented by a frame
+---------------------
+          | var1 --> 1
+ __main__ | var2 --> 2
+---------------------
+          | param1 --> 1
+  func1   | param2 --> 2
+---------------------
+traceback         list of functions called print when an exception occurs
+                  same as the order of the frames in the stack diagram
+                  current function is at the bottom
+
+fruitful          functions that return results
+void              might display something, but they do not have a return value
+                  return value of None
+
+Chapter 4 - interface design
+
+encapsulation     grouping a sequence of statements into a function definition
+generalization    replacing something unnecessarily specific with something appropriate
+refactoring       rearranging a program to improve interfaces and help code re-use
+development plan
+docstring         explains a functions interface
+triple-quoted strings
+preconditions     requirements before a function executes properly
+postconditions    intended effects and side effects of the function
+
+Exercises 4.12
+
+
+Chapter 5 - conditionals and recursion
+
+modulus       x % 10      extracts the right-most digit
+              x % 100     extracts the last two right-most digits
+
+compound statement      header followed by an indented body
+pass statement          like a null statement that does nothing
+
+alternative execution   used for two possibilities
+  branch                branch in the flow of execution
+chained conditional     three or more possibilities
+
+nested conditional
+
+recursion               when a function calls itself from inside the function ?
+
+base case               bottom of a stack diagram with no recursive function call
+                        conditional branch that does not make a recursive call
+infinite recursion      does not have a base case or never reaches it
+                        makes recursive calls until runtime error
+                        program terminates when it reaches maximum recursion depth
+
+input
+raw_input in Python 2
+
+Exercises 5.14
+
+Chapter 6 - Fruitful exercises
+
+return value
+dead code               code that appears after a return statement
+incremental development 
+scaffolding             code used to build programs but is not in the final product
+composition
+
+guardian                use a conditional statement to check and handle possible errors
+
+Chapter 7 - iteration
+
+reassignment
+initialize              assignment that gives an initial value to a variable
+update                  assignment where the new value depends on the old
+  increment             updating a variable using addition
+  decrement             updating a variable using subtraction
+iteration               repeated execution of a set of statements
+                        can use recusive function call or a loop
+break
+algorithm
+
+Chapter 8 - strings
+
+sequence                ordered collection of values
+                        each value is identified by an integer index
+item                    a value in a sequence
+string                  sequence of chars
+index                   indicates which char to access in the sequence
+                        integer offset from the beginning of a string
+  negative index        counts backwards from the end of the string
+len()
+traverse                to iterate through the items in a sequence
+slice                   segment of a string, [0:5]
+immutable               unchangeable
+search                  traversing a sequence and returning when something is found
+counter
+invocation              calling a method 
+optional argument       a function or method argument that is not required
+in operator             Boolean operator
+                        returns True if the first string appears in the second string
+                        
+string comparison
+
+method                  a function run against an object
+  object.method
+
+Chapter 9 - word play
+
+fin                     file input
+file object
+
+Chapter 10 - lists
+
+string                  sequence of chars
+  string methods        return a new string
+                        can be used with assignment
+  
+list                    sequence of elements/items/values, enclosed in square brackets
+                        don't have to be the same type
+  list methods          modify an argument in place and return None
+                        cannot be used in assignment
+
+list1 = list()              create blank list
+list1 = list1 + ['value1']  add item to list; slower than appending
+list1.append('value1')      add item to list; faster than concatenation
+
+
+concatenation
+replication
+
+slice operator
+
+augmented assignment statement
+accumulator
+sum                     adds up the elements of a list
+reduce                  combine a sequence of elements into a single value
+map                     perform an operation on each element in a sequence
+filter                  selects some elements of a list
+
+pop                     removes and returns an element
+del                     removes and deletes an element
+remove                  removes an elemet without needing its index
+
+list()                  converts a string to a list of individual chars
+split()                 breaks a string into individual words and stores them as items in a list
+  delimiter             char or string where a string should be split
+                        default value is space char
+join()                  converts a list of string into a string
+                        invoked on a delimiter and pass a list into it
+
+is operator             checks if two variables refer to the same object
+identical               refer to same object, thus equivalent
+equivalent              have the same elements/values
+
+reference               association of a variable with an object
+aliasing                two or more variable refering to the same object
+                        if the object is mutable, changes affect both references
+
+list modification       modifies a list and returns None
+list creation           modify and assignment
+
+object                  something a variable can refer to
+                        has a type and a value
+
+Chapter 11 - dictionaries
+
+list                    indices must be integers
+dictionary              each index is a key that maps to a value
+                        indices can be any type
+                        the order of dict items can be unpredictable
+                        Python uses a data structure called a hashtable
+
+  d = dict()            create dictionary
+  d['key1'] = 'value1'  add a key and value with assignment operator
+                        lists can be values but not keys
+
+mapping                 
+
+implementation          a way of performing a computation
+
+histogram               statistical term for a collection of counters
+                        if key is not in dict, it creates that key and a value
+                        if key is in the dict, it increments that key's value
+
+get('key', def_value)   if key exists, it returns its value
+                        if key does not exist, it returns the passed default value
+                        does not create a key and set its value
+
+setdefault()            if key exists, it returns its value
+                        if key does not exist, it creates that key and sets its value
+
+sorted()                
+
+lookup                  finding a value based on a dict and a key
+reverse lookup          finding a key based on a value
+                        slower than a forward lookup; performance suffers with big dicts
+
+raise statement         a statement that deliberately causes an exception
+
+hash                    a function that takes a value and returns an integer (hash value)
+hash value              used to store and lookup key-value pairs
+                        keys must be immutable, otherwise can cause problems
+                        mutable types are not hashable; use tuples as a workaround
+has function            function used by a hashtable to compute the location of a key
+
+call graph              a diagram that shows every frame created during a program's execution
+memo                    a computed value that is stored to avoid unnecessary future computation
+
+flag                    boolean variable used indicate whether a condition is True
+
+
+
+
+

@@ -1,0 +1,294 @@
+
+test runners              app that executes the test code, checks the assertions and returns results
+  unittest                Python standard library
+                          requires:
+                            tests are classes with methods
+                            use assertion methods in the unittest.TestCase class instead of assert()
+
+  nose2                   compatible with tests written using unittest framework (drop-in replacement)
+                          https://nose2.readthedocs.io/
+
+    python -m nose2       will run all scripts named 'test*.py' in the cwd
+                          will discover test cases inheriting from unittest.TestCase
+  pytest                  https://docs.pytest.org/en/latest/
+                          supports:
+                            built-in assert statements instead of self.assert*() methods
+                            filtering for test cases
+                            ability to rerun the last failing test
+                            extensible with plugins
+
+code testing glossary
+
+automated testing         execution of the test plan by a a script
+fixture                   data created as an input to a test function
+integration testing       checks multiple components
+parameterization          running the same test with different values and expexcting the same result
+Single Responsibilty      following this principle makes it easier to write repeatable tests
+unit test                 checks a single component
+
+test case                 single scenario that must be set up and checked
+                          represented by instances of unittest.TestCase 
+                          checks for a specific response to a set of inputs
+test fixture              the prep needed to perform one or more tests and any associated cleanup actions
+test runner               executes tests and outputs results
+test suite                aggregated tests that should be executed together
+                          collection of test cases, suites or both
+
+unittest module
+
+three possible outcomes
+  ok                      test passes
+  fail                    test does not pass, raises an AssertionError exception
+  error                   test raises any exception other than AssertionError
+
+
+python -m unittest test_module1 test_module2
+python -m unittest test_module.TestClass
+python -m unittest test_module.TestClass.test_method
+
+python -m unittest        runs tests located importable modules
+
+python -m unittest discover 
+  -b                      --buffer stdout and stderr during tests
+  -c                      catch Ctrl + C and display the results thusfar
+  --catch
+  -f                      stop test run on the first fail or error
+  --failfast
+  -h                      --help
+  -k PATTERN              run tests that match the pattern
+  --locals                show local variables in the traceback
+  -p                      pattern to find test files ('test*.py' is default)
+  --pattern
+  -s                      dir to start discovery
+  --start-directory
+  -t                      top-level dir of the project
+  --top-level-directory
+  -v                      --verbose
+
+
+python -m unittest            same as using discover
+python -m unittest discover   
+python -m unittest discover -v -s -p -t
+
+
+--------------------------
+python test_func1.py
+python -m unittest test_func1
+python -m unittest -v                                 verbose
+                                                      prints test function being executed 
+                                                        and docstring of the test function
+python -m unittest discover                           attempt to run any scripts that start with 'test' in the cwd
+
+
+test_func01.py                                        test runner checks the names of scripts
+import unittest
+from module import func01                             import the specific function to test
+
+class TestFunc01(unittest.TestCase):                  must inherit from class unittest.TestCase
+    '''Doctring.'''                                   docstring is returned if test case fails
+    def test_func01(self):                            'test_' methods run automatically by test runner
+        args = []
+        result = func01(args)
+        expected = []
+        self.assertEqual(result, expected, 'failure message')
+
+
+class WidgetTestCase(unittest.TestCase):
+    def setUp(self):
+        self.widget = Widget('The widget')
+
+    def tearDown(self):
+        self.widget.dispose()
+
+
+if __name__ == '__main__':                            run tests if script executed at command line
+                                                        tests not run if file is imported
+    unittest.main()                                   discovers all classes inheriting unittest.TestCase
+
+--------------------------
+class Example(unittest.TestCase):
+    @classmethod                                      runs at the beginning of the test case
+    def setUpClass(cls):                              used for expensive elements, rarely needed
+        print("setUpClass")                           database connections, opening temp files
+
+    def setUp(self):                                  called to prep a fixture (i.e. instantiate an object)
+        print("setUp")                                runs before every test
+
+    def test1(self):
+        print("test1")
+
+    def test2(self):
+        print("test2")
+
+    def tearDown(self):
+        print("tearDown")
+
+    @classmethod
+    def tearDownClass(cls):                           runs at the end of the test case
+        print("tearDownClass")
+        
+output:
+setUpClass
+setUp
+test1
+tearDown
+.setUp
+test2
+tearDown
+.tearDownClass        
+--------------------------
+
+
+
+unittest classes
+  BaseTestSuite
+  FunctionTestCase
+  IsolatedAsyncioTestCase
+  SkipTest                raise this exception in a test to skip it
+  TestCase                wraps a test function
+    fail()
+    setUp()               
+    skipTest()
+    tearDown()            
+    
+  TestLoader              loads tests and wraps them in a TestSuite
+  TestProgram
+  TestResult              holder for test result info
+  TestSuite               used to group TestCases
+    addTest()
+    assTests()
+    countTestCases()
+
+  TextTestResult
+  TextTestRunner
+
+
+unittest.TestCase class   instances are single test cases
+
+methods
+  assertAlmostEqual()
+  assertNotAlmostEqual()
+  assertEqual()
+  assertNotEqual()
+  assertTrue()
+  assertFalse()
+  assertGreater()
+  assertLess()  
+  assertGreaterEqual()
+  assertLessEqual()  
+  assertIn()
+  assertNotIn()  
+  assertIs()
+  assertIsNot()
+  assertIsNone()  
+  assertIsNotNone()    
+  assertIsInstance()
+  assertNotIsInstance()
+  assertNotRegex()
+  assertNotRegexpMatches()
+
+containers
+  assertCountEqual()
+  assertDictEqual()
+  assertListEqual()
+  assertMultiLineEqual()      check two multi-line strings
+  assertSequenceEqual()
+  assertSetEqual()            check if two sets are equal
+  assertTupleEqual()          check if two tuples are equal
+  
+  assertLogs()
+
+  assertRaises()              verify that a specific exception gets raised
+                              use with a context manager
+  assertRaisesRegex()         checks if the message in a raised exception matches a regexp
+  assertRegex()
+  assertRegexpMatches()
+  assertWarns()               passes if the expected warning is triggered
+  assertWarnsRegex()          checks the message in a triggered warning matches a regexp
+  
+  countTestCases()
+  debug()                     run the test without collecting errors in a TestResult
+  defaultTestResult()
+  doClassCleanups
+  doCleanups
+  fail()                      fail immediately with given message
+  failureException
+  id
+  longMessage
+  maxDiff
+  run()
+  setUp()                     used to construct the test's environment/fixture
+                              creates instances and attributes from a class that can be used in 
+                                all the test methods for a class
+
+  setUpClass                  class created at the very beginning of a test (?)
+  shortDescription()          first line of the test method's docstring
+  skipTest()                  skip the test
+  subTest()
+  tearDown()                  used to cleanup the test's environment/fixture created by setUp()
+  tearDownClass
+
+
+unittest module           standard library module used for testing your code
+unit test                 verifies that one specific aspect of a function's behavior is correct
+test case                 collection of unit tests
+full coverage             includes a full range of unit tests covering all possibilities
+
+
+--------------------------
+test_function1.py                           <-- name of test script
+import unittest                             <-- import unittest module
+from some_file import function1             <-- import specific function to test
+
+class Function1TestCase(unittest.TestCase): <--- must inherit from class unittest.TestCase
+    """Tests for 'some_file.py'."""
+    
+    def test_function1_case01(self):        <-- 'test_' methods run automatically
+    """Are these arg's correctly?"""        <-- docstring is returned if test case fails
+    var1 = 'value1'
+    var2 = 'value2'
+    expected_return = 'value3'
+    func1_return = function1(var1, var2)    <-- call the function to be tested
+    self.assertEqual(func1_return, expected_return)   <-- check if the results are equal
+    
+if __name__ == '__main__':                  <-- True is test script run as the main program
+    unittest.main()                             Not run if file is imported by testing framework
+
+--------------------------
+setUp() example                      
+
+exmpample that test a method's action on a list
+test_class1.py
+import unittest
+from some_class import Class1
+
+class ClassTestCase(unittest.TestCase):
+    """Test for the class Class1."""
+    
+    def setUp(self):
+        """
+        Create an instance of Class1 and any attributes to test methods with.
+        """
+        arg1 = 'value1'
+        self.instance1 = Class1(arg1)
+        self.attribute1 = ['item1', 'item2', 'item3']
+        
+    def test_method1_example1(self):
+        """Test the method1 behaves correctly."""
+        self.instance1.method1(self.attribute1[0])
+        self.assertIn(self.attribute1[0], self.instance1.attribute1)
+        
+if __name__ == '__main__':
+    unittest.main()
+
+--------------------------
+
+
+
+
+
+
+
+
+
+

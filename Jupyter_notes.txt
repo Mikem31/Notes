@@ -1,0 +1,123 @@
+
+questions:
+  pager ?
+
+VS Code check out:
+  Variable explorer and data viewer
+  Plot viewer
+  Debug a Jupyter Notebook
+  ipywidgets
+
+  Jupyter Notebooks in Practice           https://www.datacamp.com/community/tutorials/tutorial-jupyter-notebook
+
+Jupyter Notebook          https://jupyter.org/documentation
+                          https://code.visualstudio.com/docs/python/jupyter-support
+  
+  pip install notebook    web-based notebook environment for interactive computing
+  pip install jupyter     install all the Jupyter components (VS Code)
+  jupyter notebook        start notebook server
+
+3 components
+  notebook web app        edit and run code in the browser
+                          see results with rich media representations (HTML, LaTeX, PNG, SVG, PDF, etc.)
+                          create and use JavaScript widgets
+                          author notebook documents
+  
+  kernels                 runs user code in a given language and outputs back to web app
+                          handles computations for interactive widgets, tab completion and introspection
+                          Python, Julia, R, Ruby, Haskell, Scala, node.js, Go
+
+  notebook documents      each notebook document has its own kernel
+                          contains a representation of all content visible in the web app
+                          input/output of the computations, narrative text, equations, images, and rich media
+    
+    nbconvert             used to export notebooks to other formats
+    nbviewer              renders a notebook document as a static web page
+                          used to share notebook documents with installing Jupyter Notebook
+    nbpresent             convert notebooks to slideshows
+
+notebook modes
+  edit mode       Enter   green edge, edit cell
+                          
+  command mode    Esc     blue edge, edit notebook as a whole
+                          access keyboard shortcuts
+
+download/export options
+  AsciiDoc                .asciidoc
+  HTML                    .html
+  LaTeX                   .tex
+  Markdown                .md
+  Jupyter Notebook        .ipynb
+  PDF via LaTeX           .pdf
+  reST                    .rst
+  Python                  .py
+  Reveal.js slides        .slides.html
+  
+
+three cell types
+  code cells        Y     input and output of live code that is run in the kernel
+  markdown cells    M     narrative text with embedded LaTeX equations
+  raw cells         R     unformatted text
+
+markdown cells
+
+code cells
+  !                       run the following code as a Bash command
+  %                       line magics, command args will come from the same line
+    %lsmagic              list the available commands
+    %matplotlib inline    allows plots to be displayed in the notebook
+
+
+  
+  %%                      cell magics, entire cell will be used for the command args
+
+  %%!  
+  %%HTML                  allows cell to render/output HTML code
+  %%SVG  
+  %%bash  
+  %%capture               capture cell output
+  %%cmd  
+  %%debug  
+  %%file 
+  %%html  
+  %%javascript  
+  %%js  
+  %%latex  
+  %%markdown  
+  %%perl  
+  %%prun  
+  %%pypy  
+  %%python  
+  %%python2  
+  %%python3  
+  %%ruby  
+  %%script  
+  %%sh  
+  %%svg  
+  %%sx  
+  %%system  
+  %%time  
+  %%timeit  
+  %%writefile file.ext    write cell contents to a file
+    -a                    append
+
+Help -> Keyboard Shortcuts
+
+  Basic navigation:       enter, shift-enter, up/k, down/j
+  Saving the notebook:    s
+  Change Cell types:      y, m, 1-6, t
+  Cell creation:          a, b
+  Cell editing:           x, c, v, d, z
+  Kernel operations:      i, 0 (press twice)
+
+
+  Ctrl + Enter            run celll, enter command mode
+  Alt + Enter             run cell, insert below
+  Shift + Enter           run cell, select below
+  
+  A                       insert cell above
+  B                       insert cell below
+                          delete the cell
+  S                       save the notebook
+  
+  P   commands ?

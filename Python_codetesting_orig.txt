@@ -1,0 +1,140 @@
+
+test runners              app that executes the test code, checks the assertions and returns results
+  unittest                Python standard library
+                          requires:
+                            tests are classes with methods
+                            use assertion methods in the unittest.TestCase class instead of assert()
+
+  nose2                   compatible with tests written using unittest framework (drop-in replacement)
+                          https://nose2.readthedocs.io/
+
+    python -m nose2       will run all scripts named 'test*.py' in the cwd
+                          will discover test cases inheriting from unittest.TestCase
+  pytest                  https://docs.pytest.org/en/latest/
+                          supports:
+                            built-in assert statements instead of self.assert*() methods
+                            filtering for test cases
+                            ability to rerun the last failing test
+                            extensible with plugins
+
+
+
+Real Python               https://realpython.com/python-testing/
+
+code testing glossary
+
+manual testing
+  exploratory testing     done without a plan (?)
+  
+automated testing         execution of the test plan by a a script
+
+integration testing       checks multiple components
+
+unit test                 checks a single component
+
+Single Responsibilty      following this principle makes it easier to write repeatable tests
+
+fixture                   data created as an input to a test function
+parameterization          running the same test with different values and expexcting the same result
+
+AssertionError
+
+
+
+--------------------------
+python test_func1.py
+python -m unittest test_func1
+python -m unittest -v                         verbose
+                                                prints test function being executed
+                                                docstring of the test function
+python -m unittest discover                   attempt to run any scripts that start with 'test' in the cwd
+
+
+test_func1.py                                             name of test script
+import unittest                                           import unittest module
+from some_file import func1                               import the specific function to test
+
+class TestingFunction(unittest.TestCase):                 must inherit from class unittest.TestCase
+    '''Doctring.'''                                       docstring is returned if test case fails
+    def test_func1(self):                                 'test_' methods run automatically
+        self.assertEqual(func1(args), exp_ret, 'message if test fails')
+
+if __name__ == '__main__':                                run tests if script executed at command line
+                                                            tests not run if file is imported
+    unittest.main()                                       discovers all classes inheriting unittest.TestCase
+
+--------------------------
+
+
+unittest module           standard library module used for testing your code
+unit test                 verifies that one specific aspect of a function's behavior is correct
+test case                 collection of unit tests
+full coverage             includes a full range of unit tests covering all possibilities
+
+assert methods
+  assertEqual(a, b)
+  assertNotEqual(a, b)
+  assertTrue(x)
+  assertFalse(x)
+  assertIn(item, list)
+  assertNotIn(item, list)
+  
+--------------------------
+test_function1.py                           <-- name of test script
+import unittest                             <-- import unittest module
+from some_file import function1             <-- import specific function to test
+
+class Function1TestCase(unittest.TestCase): <--- must inherit from class unittest.TestCase
+    """Tests for 'some_file.py'."""
+    
+    def test_function1_case01(self):        <-- 'test_' methods run automatically
+    """Are these arg's correctly?"""        <-- docstring is returned if test case fails
+    var1 = 'value1'
+    var2 = 'value2'
+    expected_return = 'value3'
+    func1_return = function1(var1, var2)    <-- call the function to be tested
+    self.assertEqual(func1_return, expected_return)   <-- check if the results are equal
+    
+if __name__ == '__main__':                  <-- True is test script run as the main program
+    unittest.main()                             Not run if file is imported by testing framework
+
+--------------------------
+setUp() method            used to simplify the unit testing of classes
+                          creates instances and attributes from a class that can be used in 
+                            all the test methods for a class
+
+exmpample that test a method's action on a list
+test_class1.py
+import unittest
+from some_class import Class1
+
+class ClassTestCase(unittest.TestCase):
+    """Test for the class Class1."""
+    
+    def setUp(self):
+        """
+        Create an instance of Class1 and any attributes to test methods with.
+        """
+        arg1 = 'value1'
+        self.instance1 = Class1(arg1)
+        self.attribute1 = ['item1', 'item2', 'item3']
+        
+    def test_method1_example1(self):
+        """Test the method1 behaves correctly."""
+        self.instance1.method1(self.attribute1[0])
+        self.assertIn(self.attribute1[0], self.instance1.attribute1)
+        
+if __name__ == '__main__':
+    unittest.main()
+
+--------------------------
+
+
+
+
+
+
+
+
+
+

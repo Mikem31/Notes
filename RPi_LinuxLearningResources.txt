@@ -1,0 +1,14 @@
+
+LinuxJourney.com            - system admin basics
+LinuxCommand.org            - command line
+tutorialLinux on YouTube    - the Linux Basics Course
+
+Bash Guide for Beginners    - tldp.org
+Bash Guide - Greg's Wiki    - mywiki.wooledge.org
+
+-----------------
+
+The Complete Linux Course: Beginner to Power User - left off 3:19 (git)
+https://www.youtube.com/watch?v=wBp0Rb-ZJak
+
+Linux Sysadmin Basics 02 -- Basic Commands (16:14)

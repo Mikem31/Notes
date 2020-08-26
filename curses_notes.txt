@@ -1,0 +1,10 @@
+
+initscr()                 initialize screen
+curses.noecho()           disable auto echoing of keys
+curses.cbreak()           enable app to react to keys instantly, without pressing Enter key
+curses.keypad(True)       enable keypad mode
+curses.nocbreak()
+curses.endwin()           restore terminal to original operating mode
+
+curses.wrapper()          restores the original state of the terminal
+                          makes debugging easier

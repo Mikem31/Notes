@@ -1,0 +1,57 @@
+
+
+
+
+# print table data from nested lists
+def printTable(tableData):
+   num_of_inner_lists = len(tableData)
+   index = 0
+   while index < num_of_inner_lists:
+      for inner_list in tableData:
+         colwidth = 0
+         for item in inner_list:
+            if len(item) > colwidth:
+               colwidth = len(item)
+         print(inner_list[index].ljust(colwidth), end=' ')
+      index += 1
+      print()
+
+# nestedList = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+def printTable(nestedList):
+    num_of_inner_lists = len(nestedList)
+    index = 0
+    while index < num_of_inner_lists:
+        for inner_list in nestedList:
+            print(inner_list[index], end=' ')
+        index += 1
+        print()
+
+# create list from range()
+def create_list():
+	list1 = list()
+	for i in range(10):
+		list1.append(i)
+	return list1
+
+
+# create dict from range()
+def create_dict():
+	value = int()
+	dict1 = dict()
+	for i in range(10):
+		dict1[i] = value
+		value += 1
+	return dict1
+
+
+# create a list from a string
+def StrToList(string1):
+  list1 = list()
+  for i in string1:
+    list1.append(i)
+  return list1
+
+
+
+
+

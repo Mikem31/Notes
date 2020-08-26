@@ -1,0 +1,124 @@
+    3 OUTPUT OF ENTIRE FILES
+cat
+tac     - cat in reverse
+nl      - number lines and write files
+        - decomposes its input logical page sections
+        header      body    footer)
+        '\:\:\:'    '\:\:'  '\:'
+
+od      - write files in octal or other formats
+base32
+base64
+basenc
+
+    4 FORMATTING FILE CONTENTS
+fmt
+pr      - paginate or columnate files for printing
+fild    - wrap input lines to fit a specified width
+
+    5 OUTPUT OF PARTS OF FILES
+head
+tail
+split   - create output files containg consecutive or interleaved sections of input
+csplit  - split a file into context-determined pieces
+
+    6 SUMMARIZING FILES
+wc      - print newline, word and byte counts
+sum     - print checksum and block counts
+        - uses 16bit checksum and block size of 1024 bytes
+cksum   - print CRC checksum and byte counts
+        - preferable to using sum
+b2sum   - print or check BLAKE2 digests
+        - computes 512-bit checksum
+md5sum  - print or check MD5 digests
+        - computes 128-bit checksum
+        - more reliable than a simple CRC (like cksum) detecting file corruption
+        - should not be considered secure against malicious tampering
+sha1sum - computes a 160-bit checksum
+
+sha2 utilities  - uses same options as md5sum and sha1sum
+    sha2 hashes     - sha224sum, sha256sum, sha384sum, sha512sum
+
+    7 OPERATING ON SORTED FILES
+sort    - sort text files
+        - sort
+        - merge     given files by sorting as a group (faster when it works)
+        - check     for sortedness (based on dictionary, I think?)
+
+shuf    - shuffles its input by outputting a random permutation of its input lines
+
+uniq    - prints its input lines so that no output lines are repeated
+            or discard lines that are not repeated
+            or discard all repeated lines
+        - repeated lines are only detected if the are adjacent
+            - use sort -u to discard non-adjacent lines
+
+comm    - processes two files and outputs three columns
+            lines that are unique to file1
+            lines that are unique to file2
+            lines that are common to both files
+        - options -1, -2, -3 suppress the printing of that column
+        - files must be sorted
+
+ptx     - produce permuted indexes
+        - reads a text file and produces a permuted index,
+            with each keyword in it context
+
+tsort   - performs a topological sort
+        - reads its input as pairs of strings, separated by blanks,
+            indicating a partial ordering
+        - the output is a total ordering that corresponds to the given partial ordering
+        - useful for arranging functions so they are defined before they are called
+
+    8 OPERATING ON FIELDS
+
+cut     - output selected parts of a line
+        - output is always in the order encountered in the file
+    byte-list
+    character-list
+    field-list
+
+paste   - merge lines of files
+
+join    - join lines on a common field
+        - output a line for each pair of input lines that have identical join fileds
+
+    default behavior
+        - the join field is the first field in each line
+        - input fields separated by blanks
+        - output fields are separated by a space
+        - each output line consists of the join field, the remaining fields from file1,
+            then the remaining fields from file2
+
+
+
+join
+pg 82
+
+
+
+
+Output of entire files::       cat tac nl od base32 base64
+Formatting file contents::     fmt pr fold
+Output of parts of files::     head tail split csplit
+Summarizing files::            wc sum cksum b2sum md5sum sha1sum sha2
+Operating on sorted files::    sort shuf uniq comm ptx tsort
+Operating on fields::          cut paste join
+Operating on characters::      tr expand unexpand
+Directory listing::            ls dir vdir dircolors
+Basic operations::             cp dd install mv rm shred
+Special file types::           mkdir rmdir unlink mkfifo mknod ln link readlink
+Changing file attributes::     chgrp chmod chown touch
+Disk usage::                   df du stat sync truncate
+Printing text::                echo printf yes
+Conditions::                   false true test expr
+Redirection::                  tee
+File name manipulation::       dirname basename pathchk mktemp realpath
+Working context::              pwd stty printenv tty
+User information::             id logname whoami groups users who
+System context::               date arch nproc uname hostname hostid uptime
+SELinux context::              chcon runcon
+Modified command invocation::  chroot env nice nohup stdbuf timeout
+Process control::              kill
+Delaying::                     sleep
+Numeric operations::           factor numfmt seq

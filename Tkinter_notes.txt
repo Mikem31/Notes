@@ -1,0 +1,22 @@
+﻿
+root = tk.Tk()
+  # code goes here!
+root.mainloop()
+
+classes
+Canvas
+Frame
+Button
+Label
+Entry
+
+frame
+pack
+place
+grid
+
+
+left off      https://youtu.be/D8-snVfekto?t=1322
+              https://www.tutorialspoint.com/python/tk_canvas.htm
+              https://docs.python.org/3.8/library/tkinter.html#module-tkinter
+              https://web.archive.org/web/20190511024508/http://infohost.nmt.edu/tcc/help/pubs/tkinter/web/button.html

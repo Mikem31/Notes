@@ -1,0 +1,65 @@
+
+Standard library:
+re                        regular expressions
+sys
+webbrowser
+os
+pathlib
+argparse                  command-line parsing
+copy
+random
+string
+smtplib
+logging
+json
+configparser
+
+PyPI:
+lxml                      fast parser
+PyInputPlus               input validation
+pyperclip
+python-dotenv             env variables
+requests
+bs4 (Beautiful Soup)      extract data from XML and HTML    pip install BS4
+selenium                  web browser automation
+pyautogui
+openpyxl                  read and modify Excel spreadsheets
+ezsheets                  access Google Sheets API
+notebook                  Jupyter Notebook
+python-dotenv             env variables
+python-docx               Word doc lib for Python 3
+
+To check out:
+tempfile
+typer                     CLI (command line interfaces)
+click
+numpy
+pandas
+matplotlib                data visualization
+seaborn
+PRAW                      Reddit API
+pdfplumber
+pdfminer
+Camelot
+pillow
+pickle
+opencv                    computer vision
+nicewin
+urllib
+manim                     math animation
+anyconfig
+
+
+fileinput module      https://docs.python.org/3/library/fileinput.html
+
+
+Machine learning
+scikit-learn
+Tensoflow
+PyTorch
+
+Courses
+Stanford
+Caltech
+
+kaggle

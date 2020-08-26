@@ -1,0 +1,147 @@
+﻿
+extensions:
+TabOut
+Python
+Remote - SSH
+Remote - SSH: Editing Configuration Files
+
+additional software:
+Git for Windows
+
+check out:
+snippets
+
+code .                    launch VS Code in the folder from the command line
+
+Python virtual enviroment workflow
+  create project folder in Windows Explorer
+  open project folder in VS Code
+  save workspace (optional)
+  open terminal to access command prompt
+  create virtual env inside the project folder
+  Ctrl + Shift + P  >  Python: Select Interpreter
+  kill any opened terminals
+  open new terminal, VS Code should autorun activate.bat
+
+
+workbench                 refers to the overall Visual Studio Code User Interface
+                          UI components: Title Bar, Activity Bar, Side Bar, Panel, Editor Group, Status Bar
+
+workspace                 usually just the project root folder
+                          stores global workspace settings, debugging and task configs  ->  .code-workspace file
+
+multi-root workspaces     multiple folders
+
+outline                   use to quickly navigate the symbol tree: imports, functions, variable, etc.
+
+
+user settings             apply globally to any instance of VS Code
+
+workspace settings        settings for workspaces and folders
+                          only apply when the workspace is opened
+                          if you open a folder, you create an unsaved workspace (?)
+                          if you change workspace settings, /.vscode/settings.json is created in the folder
+
+settings                                  Folder > Global Workspace > User
+  Preferences: Open User Settings
+  Preferences: Open Workspace Settings
+  Preferences: Open Folder Settings
+
+Python settings           https://code.visualstudio.com/docs/python/settings-reference
+
+
+diff                      select two files in Explorer and choose Compare Selected
+
+code testing
+
+
+
+keyboard shortcuts
+  F1                          command palette
+  Ctrl + B                    show/hide sidebar window
+  Ctrl + G                    go to line number
+  Ctrl + J                    toggle panel
+  Ctrl + P                    quick open recent files or search for files in open folder
+    >                         show and run commands
+    :                         go to line number
+    @                         go to symbol in code editor
+    #                         go to symbol in workspace
+
+  Ctrl + Q                    quick open views
+    
+  Ctrl + Z                    Zen mode, ESC ESC to leave
+  Ctrl + 1                    go to the first editor from the left
+  Ctrl + 3                    go to the third editor from the left
+  Ctrl + ,                    settings
+  
+  Ctrl + `                    toggle terminal panel
+  Ctrl + \                    split active editor into two
+  Ctrl + Tab                  switch bewteen open files in an editor group
+  Ctrl + Space                activate IntelliSense
+
+  Alt + F12                   peek at definition
+
+  Shift + F12                 peek at references (?) what is considered a reference ?
+
+  Ctrl + Alt + Left/Right     collapse/split editor to another column
+
+  Ctrl + Shift + F            search all files in the currently opened folder, results can be saved to file            
+  Ctrl + Shift + J            toggle search details
+
+  Ctrl + Shift + `            open a new terminal
+  Ctrl + Shift + \            jump to the matching bracket
+
+  Shift + Alt + click         column (box) select
+  Shift + Alt + Up/Down       copy current line and place above/below
+
+command palette
+  Ctrl + P                    quick open recent files or search for files in open folder
+  Ctrl + Tab                  command history
+  Ctrl + Shift + O            go to a specific symbol in a file
+  Ctrl + Shift + P            editor commands
+
+sidebar views
+  Ctrl + Shift + E            explorer
+  Ctrl + Shift + F            search inside files in a folder/workspace
+  Ctrl + Shift + G            source control
+  Ctrl + Shift + D            run and debug
+  Ctrl + Shift + X            extensions
+
+panels
+  Ctrl + `                    show/hide terminal
+    Ctrl + Shift + 5          split terminal 
+      Alt + Left              prev pane
+      Alt + Right             next pane
+    Ctrl + Shift + `          add additional terminal to the dropdown list
+    Ctrl + Shift + C          open external shell
+
+  Ctrl + Shift + Y            debug console
+  Ctrl + Shift + M            problems
+    F8                        cycle through errors and warnings
+  Ctrl + Shift + U            output
+
+multiple cursors               
+  Alt + click                 add another cursor
+  Ctrl + Alt + Up/Down        add another cursor above/below the current position
+  Ctrl + D                    add other occurrences of the word to the selection
+  Ctrl + Shift + L            add all occurrences of the word to the selection
+
+debugging
+  F5                          run/debug program; continue/pause
+  F10                         step over
+  F11                         step into
+  Shift + F11                 step out
+  Ctrl + Shift + F5           restart
+  Shift + F5                  stop
+  F9                          insert breakpoint at line
+  Shift + F9                  insert inline breakpoint
+
+  inspect data                from the variables section or hover over source code
+                              expressions in the watch section
+                              variables can be set
+                              function breakpoints
+                              data breakpoints
+                              debug console REPL
+
+
+

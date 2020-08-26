@@ -1,0 +1,291 @@
+TODO:
+enable servers on Debian VM (ftp, http, etc.)
+
+Left off:
+https://www.theodinproject.com/courses/web-development-101/lessons/installing-ruby?ref=lnav
+
+MISC:
+G0CT  - Ground Zero Certified Technologist
+The Odin Project
+  
+
+HTML
+tags                      words enclosed in angle brackets
+                          how to format the web page
+element                   starting tag, text (inner HTML) and closing tag
+  a                       anchor element
+  div                     content division
+  p                       paragraph element
+  
+attributes                extra properties appearing inside the opening tags
+
+
+  
+developer tools           F12, used to examine, edit, and debug HTML, CSS, and JavaScript
+CSS selector
+
+Mozilla Developer Network
+hyphens vs underscore     use hypens, they are considered a word separator
+
+elements
+nested elements           must be clearly inside or outside one another
+empty elements            have no content and no closing tag
+
+https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes
+
+attributes                contain extra info about an element
+  attr_name='attr_value'
+  alt                     descriptive text for accessibility and page loading errors
+  href                    hypertext reference
+  src                     contains the path to the content
+  href                    the URL that text links to
+  id                      used to uniquely identify an element for CSS styling
+  class                   used for CSS styling
+  hidden                  prevents rendering of the given element 
+                            while keeping child elements, e.g. script elements, active
+  lang                    defines the language used in the element
+  ping                    space-separated list of URLs to be notified if a user follows a hyperlink
+  style                   defines CSS styles which will override styles previously set
+  title                   Text to be displayed in a tooltip when hovering over the element
+
+
+anatomy of an HTML document
+<!DOCTYPE html>
+<html></html>             wraps all of the content on the page
+                          root element
+<head></head>             container for all of the stuff on the HTML page that is not the content
+  contains:
+    keywords and page deccription for search results
+    CSS to style the content
+    char set declarations
+
+<meta charset='utf-8'>    includes most chars from the vast majority of written languages
+
+<title></title>           sets the title of the page
+                          title that appears in the browser tab and in bookmarks
+
+<body></body>             contains all of the content to shown to the user
+
+
+essential HTML elements
+  <h1></h1>               headings, has six levels
+                          also used to accessibility and SEO
+
+  <p></p>                 paragraph
+  
+  lists
+    <ul></ul>             unordered lists
+    <ol></ol>             ordered lists
+      <li></li>           list item
+
+  <a></a>                 anchor
+  <a href=''></a>         link
+
+
+CSS                       Cascading Style Sheets, style sheet language
+
+  selector {property: property_value};
+
+selector                  selects the element to be styled
+declaration               a single rule, consisting of 'property: property value'
+properties                ways that a given HTML element can be styled                  
+property value
+
+types of selectors
+  element                 p
+  ID                      #my-id
+  class                   .my-class
+  attribute               element[attribute]
+  pseudo-class            a:hover
+
+
+CSS box model
+  padding                 space just around the content inside of the element
+  border                  solid line that sits just outside the padding
+  margin                  the space around the outside of the element
+  width
+  background-color        the color behind an element's content and padding
+  color                   the color of the element's content, usually the text
+  text-shadow             sets a drop shadow on the text
+  display                 sets the display mode
+
+
+Elements
+Document metadata
+  <base>                  specifies base URL for all relative URLs in the document
+  <head>                  contains metadata (machine-readable information) about the document
+  <link>                  specifies relationship b/w doc and external resource
+                          mainly used for stylesheets and favicons
+  <meta>                  represents other metadata not represented by base, link, style, or title
+  <style>                 
+  <title>
+  
+Content sectioning
+  <address>               contact info
+  <article>               syndicated composition
+  <aside>                 content that's only indirectly related to the document
+  <footer>                contains info about the author of the section, copyright data or related links
+  <header>                introductory content, navigational aids
+                          also the logo, a search form, author's name
+  <h1> to <h6>            the six levels of section headings
+  <hgroup>                groups a set of <h1> to <h6>
+  <main>                  the dominant content of the <body>
+                          the central functionality of an application
+  <nav>                   navigation links
+                          menu, table of contents, indexes
+  <section>               standalone section
+  
+Text content
+  <blockquote>            enclosed text is an extended quotation, usually indented
+  <cite>                  text of a source for a blockquote
+  <dt>                    specifies a term in a definition list
+  <dd>                    description, definition or value
+  <dl>                    description list
+                          encloses a list of groups of terms and descriptions (<dt>'s and <dd>'s)
+      <dl>
+        <dt> TERM </dt> <dd> DEFINITION </dd>
+      </dl>
+               
+  <div>                   generic container for flow content
+                          no effect until styled using CSS
+  <figure>                self-contained content, with an optional caption (figcaption>
+  <figcaption>            caption or legend describing the contents of its parent <figure>
+  <hr>                    thematic break
+                          change of scene or shift of topic within a section
+  <li>                    list item
+  <ol>                    ordered list of items, usually numbered
+  <ul>                    unordered list of items, usuallt bulleted
+  <p>                     paragraph
+  <pre>                   preformatted text to be presented exactly as written
+
+Inline text semantics
+  <a>                     anchor, used with href= attriubute
+                          used to create a hyperlink to web pages, files, email addresses
+  <abbr>                  abbreviation or acronym, used with title= attribute
+  <b>                     bring attention to this element
+  <bdi>                   bidrectional isolate
+                          treat this text in isolation from the surrounding text
+  <bdo>                   bidirectional override
+                          overrides the current directionality of text
+  <br>                    line break
+  <cite>                  citation, reference to a cited creative work
+                          must include the title of the work
+  <code>                  computer code
+  <data>                  links the content with a machine-readable translation
+  <dfn>                   definition, used to indicate the term being defined
+  <em>                    stress emphasis, can be nested for greater emphasis
+  <i>                     text that is set off from normal text for some reason
+  <kbd>                   textual input from a keyboard, voice input or other text entry device
+  <mark>                  marked or highlighted
+                          for reference or notation purposes
+  <q>                     short inline quotation, surrounds the text in quotation marks
+  <ruby>                  repesents a Ruby notation
+  <rb>                    Ruby base element
+                          used to delimit the base text of a <ruby> annotation
+  <rp>                    Ruby fallback parenthesis element
+  <rt>                    Ruby text element
+  <rtc>                   Ruby text container
+  <s>                     strikethrough text
+  <samp>                  sample or quoted output from a computer program
+  <small>                 side-comments or small print, like copyright or legal text
+                          default renders text one font-size smaller (small to x-small)
+  <span>                  generic inline container for phrasing content
+                          used to group elements for styling purposes (using class or id attributes)
+  <strong>                strong importance element, usually in bold
+  <sub>                   subscript
+  <sup>                   superscript
+  <time>                  represents a specific period of time
+  <u>                     unarticulated annotation
+                          span of inline text that should be rendered in a way that indicates that
+                            it has a non-textual annotation
+  <var>                   variable in a mathematical expression or a programming context
+  <wbr>                   word break opportunity
+                          position within text where a browser can optionally break a line
+
+Image and Multimedia
+  <area>                  hot-spot region on an image, optionally associated with a hypertext link
+                          used only within a <map> element
+  <audio>                 used to embed sound content
+                          uses src attribute or <source>
+                          can also be destination for streamed media, using MediaStream
+  <img>                   embeds an image
+  <map>                   used with <area> to define an image map (clickable link area)
+  <track>                 used as a child of <audio> and <video>
+                          specifies timed text tracks (or time-based data) for subtitles
+    Web Video Text Tracks   tracks are formatted in WebVTT (.vtt files)
+  <video>                 embeds a media player that supports video playback
+
+Embedded content
+  <embed>                 embeds external content
+                          content is provided by an external application or browser plugin
+  <iframe>                inline frame, nested browsing context
+                          embeds another HTML page into the current one
+  <object>                represents an external resource
+                          cann be treated as an image, nested browsing context, or resource for a plugin 
+  <param>                 the parameters of an <object> element
+  <picture>               contains zero or more <source> elements and one <img> element
+                          offers alternative versions of an image for different displays/device scenarios
+  <source>                specifies multiple media resources for <picture>, <audio> or <video>
+  
+Scripting
+  <canvas>                used to draw graphics and animations
+                          used with either canvas scripting API or WebGL API 
+  <noscript>              defines a section of HTML to be inserted if a script type on the page
+                            is unsupported or if scripting is currently turned off in the browser
+  <script>                used to embed or reference executable code, usually JavaScript
+  
+Demarcating edits
+  <del>                   text that has been deleted from a document
+  <ins>                   text that has been added to a document
+
+Table content
+  <caption>               title of the table
+  <col>                   a column in a table
+  <colgroup>              defines a group of columns
+  <table>                 represents tabular data (rows and columns of data)
+  <tbody>                 encloses a set of table rows (<tr>'s)
+  <td>                    a cell that contains data
+                          participates in the table model
+  <tfoot>                 set of rows that summarize the columns of a table
+  <th>                    defines the cell as a header of group of table cells
+                          uses scope and headers attributes
+  <thead>                 set of rows defining the head of the columns of the table
+  <tr>                    a row of cells in a table
+  
+Forms
+  <button>
+  <datalist>              contains a set of <option> elements
+  <fieldset>              used to group controls and labels in a web form
+  <form>                  document section containing interactive controls for submitting information
+  <input>                 used to create interactive controls for web-based forms
+  <label>                 caption for an item in a user interface 
+  <legend>                caption for the parent <fieldset>
+  <meter>                 represents a scalar value within a known range or a fractional value
+  <optgroup>              group of <options> within a <select> element
+  <option>                an item in a <select>, <optgroup>, or <datalist>
+  <output>                container that holds the result of a calculation or outcome of a user action
+  <progress>              indicates the completion progress of a task
+  <select>                a control that provides a menu of options
+  <textarea>              a multi-line plain-text editing control
+                          used to enter a comment or feedback form
+
+Interactive elements      used to create interactive user interface objects
+  <details>               creates a disclosure widget 
+                          information is visible only when widget is toggled to an open state
+  <dialog>                represents a dialog box or other interactive component
+                          dismissable alert, inspector, subwindow
+  <menu>                  group of commands that a user can perform or activate
+    list menu             appear across the top of the screen
+    context menu          appear underneath a button after it has been clicked
+
+  <summary>               a summary, caption or legend for a <details> element's disclosure box
+ 
+Web components            create and use custom elements and custom versions of standard elements
+  <slot>                  placeholder inside a web component that can be filled with custom markup
+                          create separate DOM trees and present them together
+
+  <template>              holds HTML that is not immediately rendered when a page is loaded
+                            can be instantiated during runtime using JavaScript
+  
+  
+  

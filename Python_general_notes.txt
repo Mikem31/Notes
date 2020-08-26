@@ -1,0 +1,48 @@
+Type
+  Object ?
+
+
+Built-in types
+  numeric
+  sequence
+  mapping
+  class
+  instance
+  set
+
+numeric type
+  int
+  float
+  complex
+
+set
+  set           {'value1', 'value2', 'value3'}
+  frozenset
+
+sequence type
+  tuple         ('value1', 'value2', 'value3')      immutable
+  list          ['value1', 'value2', 'value3']      mutable
+  range
+
+mapping
+  dict          {'key1': 'value', 'key2': 'value2', 'key3': 'value3'}
+
+text sequence type
+  str
+
+binary sequence type
+  bytes
+  byte array
+  memoryview
+
+
+
+
+
+
+
+
+
+
+
+

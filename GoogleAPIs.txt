@@ -1,0 +1,61 @@
+﻿
+Google Cloud APIs
+
+left off                      https://cloud.google.com/docs/authentication/getting-started
+                              Creating a service account
+
+
+authentication                the process of determining a client's identity
+authorization                 the process of determining what permissions an authenticated client has
+
+authentication                determines who you are
+authorization                 determines what you can do
+auditing logs                 record what you did
+
+principal                     an entity/identity that can be granted access to a resource
+
+two types of principals
+
+  user accounts               represent a developer, administrator, or any other person 
+    (Google Account)            who interacts with Google Cloud
+                              intended for scenarios where your application needs 
+                                to access resources on behalf of a human user
+  
+  service accounts            a Google account that is associated with your Google Cloud project
+                              represent non-human users
+                              intended for scenarios where your application needs to access resources 
+                                or perform actions on its own
+                              running App Engine apps or interacting with Compute Engine instances
+                              can be used as both an application credential or a principal identity
+  
+    (Cloud IAM)               Cloud Identity and Access Management
+
+
+application credentials       provide the required information about the caller making a request to an API
+                              
+  OAuth 2.0                   authentication process determines both the principal and the application
+                              used for accessing private data on behalf of an end user
+
+  API keys                    only identify the application, not the principal
+                              principal must be authenticated by other means
+                              useful for accessing public data anonymously
+
+  service account keys        used to access private data on behalf of a service account 
+                                outside Google Cloud environments
+
+authentication flow           choose and use the provided Cloud Client Libraries
+                              determine the correct authentication flow for your application
+                              find or create the application credentials needed for your application
+                              pass the application credentials to the client libraries at application startup time
+                                ideally through Application Default Credentials (ADC)
+                              
+  
+
+
+
+
+
+
+
+
+

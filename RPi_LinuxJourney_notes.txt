@@ -1,0 +1,978 @@
+
+
+info bash | less
+help        - list shell commands
+help COMMAND
+COMMAND --help
+man COMMAND
+whatis COMMAND  provides a brief description of command line programs
+script FILENAME     - record terminal session to a text file
+
+sudo        - superuser do
+su          - substitute users, will open a root shell
+su sudo     - switch to superuser acct
+sudo !!     - run prev command as sudo
+
+useradd     - copies files & directories from /etc/skel to the new user's home dir
+adduser     - contains more useful features (from /etc/adduser.conf)
+userdel     - remove a user's account and files (-r)
+usermod     - modify a user's system account
+            - add user to additional groups with -a
+
+groupadd
+groupdel
+groupmod    - used to change group properties
+    primary group                   - group applied when logging in
+    secondary/supplementary groups
+
+
+whoami      - ID current user
+who         - see info about logged-on users
+
+
+
+id          - show real and effective user and group IDs
+
+
+
+
+******** FILE PERMISSIONS
+chmod 644 filename
+chmod ugo+rwx filename
+chown user:group filename   - modify ownership
+chown user filename
+chgrp group filename
+umask                   - default permissions of newly created files
+umask 021               - user untouched, group remove read, other remove exec
+
+SUID    - permission bit allows user to run a program as the owner
+            - sudo chmod u+s filename (upper-case S = no execute)
+            - sudo chmod 4755 filename  - the 4
+SGID    - permission bit allows a user to run program as a group member
+            - sudo chmod g+s filename
+            - sudo chmod 2555 filename  - the 2
+
+sticky bit  - only the owner or root can delete/modify the file/folder
+    sudo chmod +t mydir                 - T means no write
+    sudo chmod 1755 my file             - the 1
+
+******** PROCESS PERMISSIONS
+3 types of UIDs
+    effective   - usually the same as real, unless setUID bit is enabled
+                - used to grant access rights to a process
+    real
+    saved
+
+******** COMMAND LINE BASICS
+cd ~    - home dir of user
+cd ~username
+cd --   - go back to prev dir ($OLDPWD)
+cd ./   - current dir
+cd ..   - up one level (parent dir)~
+cd -    - changes to previous working dir
+pwd     - print working dir
+ls      - list contents of a dir
+file    - shows a description of the files contents
+history - show a list of command typed
+
+less    - pager program to view text files
+cat     - output file (concatenate) to the standard output
+echo    - write to the stdout
+
+cp      - copy
+mv      - move or rename
+rm      - remove
+rmdir   - delete dir only if empty
+        - or use rm -irf dir
+
+touch   - create (empty) file
+mkdir   - create dir
+
+find /etc -type f -iname "*.conf"   - find all config files in etc, regardless of case
+find . -type f -perm 0664           - find files in this dir with these permissions
+find . -type f -not -iname "*.txt"  - find all files that are not text files
+
+which   - show location of a command
+whatis  - brief description of a command
+whereis - locations of the binary, source, and man page files for a command
+locate  - find files by name
+alias   -
+
+grep    - searches inside of files
+grep -i(ignore case) -n (line number) "search term" file1 file2
+
+******** REGEX
+^       - beginning of a line
+$       - end of a line
+.       - any char
+[abc]   - match a, b, or c (case-sensitive)
+[^CHAR] - not this char
+
+find . -type f -iname "*.php" -exec grep -i -n "function" {} + ls > output.txt
+find . -type f "*.txt" -exec grep -i -n "SearchTerm" {} + | tee output.txt
+    - find files ending with .txt, search for SearchTerm, view the results and feed them to a
+    output.txt
+
+******** REDIRECTION    - passes output to a file or stream
+stdin       < or 0>
+    sort < file1        - pass file1 to sort command
+
+stdout      > or 1>     - send stdout to a file
+            >>          - appends output to a file
+stderr      2>          - send stderr to a file
+
+output redirection
+            &>          - send both stdout and stderr to the same destination
+            2>&1        - redirect stderr to the same place as stdout
+            >&1         - redirect stdout to stdout (for piping)
+            >&2         - redirect stdout to stderr
+
+COMMAND &> FILE         - send both output streams to a file
+COMMAND > FILE 2>&1     - send stdout to a file and send stderr to same place as stdout
+COMMAND 2>&1 > FILE     - send stderr to stdout, then send stdout to file
+
+    normal      |   command > file  |  command 2> file  |  command &> file
+0 -> /dev/tty0  |   0 -> /dev/tty0  |   0 -> /dev/tty0  |   0 -> /dev/tty0
+1 -> /dev/tty0  |   1 -> file       |   1 -> /dev/tty0  |   1 -> file
+2 -> /dev/tty0  |   2 -> /dev/tty0  |   2 -> file       |   2 -> file
+
+pipe        |           - passes output of a command to input of another command
+                        - pipe only grabs stdout
+                        - cmd1 > tempfile && cmd2 < tempfile
+tee         | tee       - passes output to a command as well as writing to a file
+            | tee -a    - append to the file
+
+cut     - remove sections from each line of a file
+paste   - merge lines of a file
+head    - output the first part of a file
+expand  - convert tabs to spaces
+unexpand
+
+sort
+join
+split
+tr      - translate (change char into another set of char
+uniq    - detect duplicates in sorted files
+wc      - displays number of line, words, and bytes
+
+******** PROCESSES
+processes   - how Linux organizes programs waiting for their share of the CPU
+
+top         - displays tasks, updated every 10 secs
+ps aux
+ps aux | grep SEARCHTERM
+pgrep SEARCHTERM
+kill PID    - sends TERM signal (cleanly releases resources and saves state)
+kill -9 PID# PID#
+killall PROCESS NAME
+kill -l     - complete list of signals
+
+ps  - shows a snapshot of current processes
+    USER    - effective user ID (the owner of the process)
+    PID     - process ID
+    PPID    - parent process ID
+    %CPU    - CPU time divided by run time
+    %MEM    - ratio of RSS to physical system memory
+    VSZ     - virtual memory usage of the entire process
+    RSS     - resident set size, the non-swapped physical memory used
+    TTY     - controlling terminal associated with the process'
+    STAT    - status code
+    START   - start time
+    TIME    - total CPU usage time
+    CMD     - name of the executable/command
+
+ps aux      a - displays all running processes
+            u - show more details about the processes
+            x - lists all processes not associated with a TTY
+
+2 types of controlling terminals
+    - regular terminal devices   (tty)      - CTRL+ALT+F1 & F7
+    - pseudoterminal slave       (pts/*)
+
+    - TTY = ?   - not bound to a controlling terminal
+
+process states
+    R   - running or ready to run
+    S   - sleeping, waiting on an event, like keystroke or a packet
+    D   - uninterruptible sleep, waiting on an I/O such as a disk drive
+    T   - stopped (paused)
+    Z   - zombie process
+        - a terminated child process that has not been cleaned up by its parent
+    <   - high-priority process
+    N   - low-priority, "nice" process
+
+
+signal  - notification to a process that something has happened
+        - considered in a pending state until delivered to a process
+    - once delivered, the process can:
+        - ignore, catch, terminate, block by signal mask
+
+common signals
+    - SIGHUP    - 1     - hangup    - controlling terminal has closed
+                                    - reinitializes daemons
+    - SIGINT    - 2     - interrupt - Ctrl-C - system will try to kill process
+    - SIGQUIT   - 3     - quit
+    - SIGKILL   - 9     - kill      - kernel terminates the process, no cleanup
+    - SIGSEGV   - 11    - segmentation fault, illegal use of memory
+    - SIGTERM   - 15    - terminate - sent by kill, may be able to cleanup
+    - SIGCONT   - 18    - continue a process after a STOP or TSTP (sent from bg/fg)
+    - SIGSTOP   - 19    - stop      - pause/suspend without terminating
+                                    - not sent to target process
+    - SIGTSTP   - 20    - terminal stop (Ctrl+ Z)
+                        - sent to target program, but can be ignored
+    - SIGWINCH  - 28    - window size change
+
+
+nice    - set CPU priority for a new process
+        - high number = low priority
+        - low/negative number = high priority
+    - nice -n 5 apt upgrade
+renice  - set priority on an existing process
+    - renice 10 -p 3245
+
+status
+    - R - running or runnable
+    - S - interruptible sleep, waiting for an event to complete
+    - D - uninterruptible sleep, cannot be killed or interrupted
+    - Z - zombie, terminated process waiting to have status collected
+    - T - suspended/stopped
+
+/proc filesystem
+    - pseudo-filesystem
+    - contains virtual files (files that exist only in memory)
+    - info is generated as needed; never stored
+    - contains runtime system info
+        - system memory, mounted devices, hardware config,
+    - subdir for every PID
+
+
+
+
+cat /proc/12345/status
+
+job control
+    - COMMAND &     - send process to the background
+    - sleep 1000 &
+    - jobs          - displays job and jobspecs
+    - bg %[jobspec]
+    - fg
+    - kill %[jobID]
+
+                                      ******** SERVICES
+service SERVICE-NAME ACTION (check, status, start/restart)
+systemctl ACTION SERVICE-NAME
+
+crontab -e
+format MINUTE HOUR DAY-OF-MONTH MONTH DAY-OF-WEEK(0-6) COMMAND
+15 12 * * 0 apt-get upgrade -y
+
+                                      ******** PACKAGES
+high-level package managers (graphical package managers?)
+    yum (Yellowdog Updater, Modified)
+    dnf
+    zypper
+    PackageKit
+    YaST (Yet another Setup Tool)
+
+apt-get install, remove
+apt-cache search, policy
+
+apt (or apt-get)
+yum
+
+dpkg -i packageName.deb     - install
+dpkg -r packageName.deb
+rpm -i package.rpm          - uninstall
+rpm -r package.rpm
+dpkg -l                     - list installed packages
+rpm -qa
+
+upstream providers  - compile code and write installers
+package maintainers - review, manage and distribute the software in packages
+dependencies        - other packages or libraries
+
+/etc/apt/sources.list   - Debian repository sources file
+
+                                ***** COMPILE FROM SOURCE *****
+sudo apt install build-essential
+tar -xzvf package.tar.gz
+    - look at the README or INSTALL file
+configure   - configure script  - checks for dependencies
+make        - makefile          - contains the rules for building the software
+sudo make install
+sudo make uninstall
+sudo checkinstall               - builds a .deb file and installs it
+
+                            ***** ARCHIVING and COMPRESSION *****
+gzip    - used to compress single file
+    gzip filename   -> filename.gz
+    gunzip filename.gz
+tar     - used to create an archive of multiple files
+    tar cvf myfile.tar file1 file2  - create achive
+        create, verbose, filename
+    tar xvf myfile.tar              - unpack archive
+        extract, verbose, file
+    tar czf myfile.tar.gz           - create compressed archive
+    tar xzf myfile.ta
+
+
+                                    ***** DEVICES *****
+character device
+    - transfer data, one char at a time
+    - not physically connected to machine (pseudo devices)
+
+block device
+    - transfer data, but in large, fixed-size blocks
+    - HDDs, filesystems
+
+pipe device
+    - allows two or more processes to communicate
+    - output is sent to another process
+
+socket device
+    - facilitate communication b/w processes
+    - can communicate with many processes at once
+
+
+device characterization
+    major device number
+        - indicates the device driver that is used
+    minor device number
+        - tells the kernel which unique device it is in this driver class
+
+device names
+psuedo devices
+    /dev/zero   - accepts and discards all input
+                - produces a continuous stream of NULL bytes (zero value)
+    /dev/null   - - accepts and discards all input
+                - produces no output
+    /dev/random - produces random numbers
+
+/sys            - sys filesystem
+                - gives more detailed info than /dev
+                - manufacturer, model, state, hierarchy, where dev is plugged in
+/dev
+    - allow programs to access devices themselves
+    - entries are created by the udev system
+
+/dev/sda        - SCSI disk (Small Computer System Interface)
+lsscsi
+/dev/sr0        - read-only devices
+/dev/sg0        - generic SCSI; read and rewrite capabilities
+/dev/hda        - PATA HDDs; based on the master-slave devices
+                - also SATA HDDs running in compatibility mode
+                - may need to change BIOS to switch SATA controller to native mode
+terminals       - devices for moving chars between a user process and an I/O dev
+/dev/tty1       - virtual consoles
+/dev/pts        - dedicated filesystem
+/dev/pts/0      - pseudoterminal device
+/dev/tty
+
+2 primary display mode
+    text mode               - occurrs during system booting
+    X Window System server  - graphics mode, ususally via a display manager
+
+chvt #          - change foreground virtual terminal
+
+/dev/ttyS*      - RS-232 serial port
+                - Windows COM1 = /dev/tty0
+/dev/ttyUSB0    - plug-in USB serial adapters
+/dev/ttyACM
+/dev/lp0        - unidirectional parallel port
+                - Windows LPT1 = /dev/lp0
+/dev/parport0   - bidirectional parallel port
+
+Linux has two sets of audio devices
+    ALSA        - Advanced Linux Sound Architecture system interface
+    OSS         - Open Sound System
+
+/dev/snd/*      - ALSA
+                - difficult to work with them directly
+/dev/dsp        - OSS
+/dev/audio
+
+    pulse-audio - user-space server that manages audio from diff sources
+
+mknod           - used to create a special device (block, char, or pipe (FIFO)
+mkdev           - old program that created groups of devices
+                - followed by devfs, then udev and devtmpfs
+
+device nodes    - a type of pseudo-file used by harware and software devices
+                - not used by network devices
+udev system     - creates and manages device nodes
+
+udevd       - gets notified when a device is available
+            - performs dev initialization and process notification
+            - creates symbolic links in /dev
+            - names the links by interface type, manufacturer, model, serial, partition
+    pg 80, How Linux Works
+
+udevadm         - admin tool for udevd
+
+
+detmpfs         - developed in response to dev availability during boot
+
+
+
+mknod /dev/sdb1 b 8 3       - obsolete
+    - create a device node, block device, maj number 8, minor 3
+
+udevd    - daemon that dynamically creates and removes device files
+    - /etc/udev/rules.d
+    - udevadm info --query=all --name=/dev/sda
+lsusb, lspci, lsscsi    - lists info about devices
+
+dd  - used for converting and copying data; create backups of anything
+    - read input from a file or data stream and writes to a file or data stream
+
+                                   ***** FILESYSTEMS *****
+
+  - view the size and utilization of  currently mounted filesystems
+
+df -h   - reports details about disk usage of currently mounted filesystems
+du -h   - shows the disk  usage of the current dir
+
+partition   - a container in which a filesystem resides
+            - filesystem can span more than one partition using symbolic links
+
+partition alignment
+    - significant factor affecting SSD performance
+    - partitions should begin on a 4096-byte boundary, to optimize reading from the SSD
+
+    /sys/block/DEV/PARTITION/start      - used to show where partitions begin
+
+partition table - how the disk is partitioned
+        - where partitions begin and end
+        - which are bootable
+        - what sectors are allocated to what partition
+    MBR - master boot record
+        - can have primary, extended and logical
+        - limit of 4 primary partitions
+        - limit 1 extended partition per disk
+        - logical partitions inside extended partition
+        - up to 2TB
+    GPT - GUID partition table
+        - one type of partition, have lots
+        - each partition has as Globally Unique ID
+        - used mostly with UEFI-based booting
+
+filesystem structure
+    boot block  - the first few sectors of the filesystem; only one is needed
+    superblock  - single block after the boot block
+                - contains filesystem metadata
+                - contains size of the inode table, size of logical blocks,
+    inode table - each file/dir has a unique entry in the inode table
+    data block  -the actual data for the files and directories
+
+partitioning tools
+    fdisk   - does not support GPT
+    parted  - support both MBR and GPT
+    gparted - GUI version of parted
+    gdisk   - fdisk that only supports GPT
+
+mkfs -t ext4 /dev/sba1
+    - don't create a filesystem over an existing one
+
+mke2fs  - used to create an ext2, ext3, or ext4 filesystem
+    - also generates a UUID identifier when initializing the filesystem data structure
+
+mount   - display all presently mounted filesystems
+mount -t TYPE DEVICE MOUNTPOINT
+mount -t ext4 /dev/sba1 /mydrive
+mount UUID=XXXXXXXXX MOUNTPOINT
+
+umount MOUNTPOINT
+sync    - forces the kernel to the disk changes in its RAM buffer to the disk
+        - if unable to umount, try running the sync command
+
+mount -n -o remount /       - remounts / as read-only, used for crash recovery
+
+
+/etc/fstab  - filesystem table
+            - used to mount filesystems at boot time
+            - device or UUID, mountpoint, filesystem type, options,
+                backup info for use by the dump command, & fs integrity test order
+
+types of filesystems
+    native Linux    - ext2, ext3, ext4, btrfs, squashfs
+    SGI             - XFS
+    IBM             - jfs
+    Windows         - NTFS, FAT
+    MacOS           - hfs, hfs+
+
+flash storage systems
+    - ubifs, JFFS2, YAFFS
+database filesystems
+
+special purpose filesystems
+    - procfs, sysfsm tmpfs, squashfs, debugfs
+
+journaling
+    - ext4, xfs, btrfs, jfs
+
+
+
+UUID - Universally Unique ID
+blkid       - used to view a list of devices and along with their filesystems and UUIDs
+mount UUID=xxxx /mydrive
+
+/etc/fstab  - filesystem table config file
+            - auto mount filesystems
+
+swap - virtual memory on a partition
+    mkswap /dev/sda2    - initialize swap area
+    swapon /dev/sda2    - enable the swap device
+
+    - add to /etc/fstab     -> /dev/sda3 none swap sw 0 0
+
+free    - view swap usage
+
+fsck    - check the consistency of a filesystem
+        - perform from rescue disk for possible repair
+        - fsck /dev/sda
+e2fsck  - check an ext2, ext3, ext4 filesystem
+
+    - fsck goes through the inode table and dir structure to generate new link counts
+        and a new block allocation map
+        - then compares this data with the filesystem on the disk
+
+inodes
+    - store everything about a file except the filename
+    - point to the actual data blocks of a file
+    - typically, each inode contains 15 pointers
+        - the first 12 pointers point directly to the data blocks
+        - the other 2 point to blocks that contains pointers to more blocks
+
+df -i       - how many inodes are remaining on the system
+ls -li      - view inode numbers
+
+dumpe2fs    - view filesystem info
+debugfs     - filesystem debugger
+
+ln -s file1 mysoftlink
+symbolic link   - symlink or soft links
+                - aliases to other files
+
+ln file2 myhardlink
+hardlink        - creates another file with a link to the same inode
+                - file modification affects all linked files
+                - cannot span filsystems as inodes are unique to the filesystem
+linkcount       - the number of dir entries (hardlinks) that point to an indode
+
+block bitmap    - the filesystem reserves a series of bytes, each bit corresponding
+                    to one block in the data pool
+                - lets the filesystem know which blocks are in use
+
+FHS - filesystem hierarchy standard
+
+CIFS    - SAMBA
+
+NFS     - Network Filesystem
+        - uses daemons
+/etc/exports    - contains dir and permissions that a host is willing to share over NFS
+    /DIR_TO_SHARE   *.example.com(rw)
+
+/etc/fstab on client
+    SERVERNAME(?):/DIR_TO_SHARE /mnt/nfs/DIR_TO_SHARE nfs 0 0
+
+one-time mount
+    mount servername:/DIR_TO_SHARE /mnt/nfs/DIR_TO_SHARE
+
+
+exportfs -av    - announce filesystems available to be mounted from remote hosts
+
+
+/etc directory  - home for system-wide config files and some scripts
+                - only su can modify these files
+
+/lib & /lib64   - contains libraries for programs in /bin & /sbin
+                - filenames start with LD or LIB
+libraries       - common code shared by applications and needed by them to run
+                - aka shared libraries or shared objects (SOs)
+
+/lib/modules    - kernel code (usually drivers) that can be loaded and unloaded
+                    without restarting the system
+
+/run/media/$USER/USBDRIVE   - modern USB drive mounting
+
+/mnt            - used for temp mounting filesystems
+                - NFS
+                - loopback filesystems (temp partitions)
+                    - files that pretend to be partitions
+
+/opt            - optional application software packages
+
+/sys            - virtual pseudo-filesystem providing info about system and hardware
+                - can be used to alter system parameters and for debugging
+
+/srv            - site-specific data served by the system
+                - seldom used
+
+/tmp            - temp files
+                - some distros erase on reboot or may be a ramdisk
+
+/usr            - multi-user apps, utilities and data
+                - contains theoretically non-essential programs and scripts
+                    - should not be required to initially boot the system
+/usr/include    - header files used to compile applications
+/usr/lib        - libraries for programs in /usr/bin and /usr/sbin
+/usr/lib64      - 64-bit libraries for 64-bit programs in /usr/bin and /usr/sbin
+/usr/sbin       - non-essential system binaries, such as system daemons
+/usr/share      - shared data used by apps, generally architecture-independent
+/usr/src        - source code, usually for the Linux kernel
+/usr/local      - data and programs specific to the local machine
+                - subdirectories include: sbin, lib, share, include, ...etc.
+/usr/bin        - primary dir of executable commands on the system
+
+special purpose filesystems
+    proc
+    sysfs
+    tmpfs
+
+******** BOOT PROCESS
+BIOS
+- initializes hardware and runs POST
+- seaches for the boot block and loads the bootloader
+
+MBR
+- with BIOS/MBR, bootloader resides in the first sector (the MBR), the first 512 bytes
+- bootloader examines the partition table, looking for a bootable partition
+- in the bootable partition, it looks for the second stage bootloader (GRUB)
+     and loads it into memory
+
+GPT
+- for EFI/UEFI, UEFI firmware reads its Boot Manager data to determine which UEFI to
+    be launched and from where (location of EFI partition)
+- the firmware launches the UEFI application (GRUB) as defined in the boot entry in
+    the firmware's boot manager
+
+- the second stage boot loader resides under /boot
+- a splash screen allows user to choose which OS to boot
+
+
+
+bootloader  - loads the kernel image and the initial RAM disk or filesystem into memory
+            - selects the kernel and specifies parameters
+            - GRUB, LILO, efilinux, coreboot, SYSLINUX, etc.
+            - ISOLINUX (removable media), DAS U-boot (embedded devices)
+
+    initrd      - specifies location of the initrd/initramfs
+    BOOT_IMAGE  - location of the kernel image
+    root        - location of the root filesystem and init
+                - represented by UUID or device name /dev/sda1
+    ro          - mounts the filesystem as read-only
+    quiet       - hides the background messages on the display
+    splash      - shows splash screen
+
+kernel      - initializes devices and memory
+            - loads the init process
+
+    initrd  - initial RAM disk mounted first, load bootup drivers, then replace
+                the initial RAM disk with the actual root filesystem
+    initramfs   - temp root filesystem built into the kernel to load all of the
+                necessary drivers for the real root filesystem
+    udev    - user device; responsible for figuring out which dev are present, locating
+                the neceassy device drivers and loading them
+
+    - root partition is mounted in read-only mode
+    - runs fsck then mounts in read-write mode
+    - the kernel locates and executes init
+
+init        - first process that gets started
+            - handles the mounting and pivoting over to the final real root filesystem
+            - starts/stops all other essential processes/services
+            - keeps the system running and shuts it down cleanly
+            - manages all non-kernel processes (cleans them after completion
+            - restarts user login services when users log in and out
+            - 3 major implementations in Linux distros
+    sysv    - traditional init system
+            - serial process that passes the system a sequence of runlevels containing
+                collections of scripts that start and stop services
+            - each runlevel supports a different mode of running the system
+            - each stage requires completion before the next could proceed
+            - sequentially starts/stops process
+            - based on startup scripts
+            - the states of the machine is denoted by run levels
+            - each run level starts/stops a machine in a different way
+    Upstart - found on older Ubuntu installs
+            - uses jobs and events
+            - starts jobs that perform certain actions in response to events
+            - falling out of favor along with sysv
+    systemd - faster than prev startup methods
+            - uses parallelization techniques
+            - mulitple services initiated simultaneously
+            - tries to satisfy the goals dependencies to complete the goal
+            - less complicated, uses simpler config files
+                - enumerate what has to be done before a service is started
+                - how to execute service startup
+                - what conditions have been acomplished when finished
+            systemctl   - systemd command that is used for most basic tasks
+
+******** KERNEL
+Linux OS can be organized into 3 different levels of abstraction
+    hardware    - the most basic, physical layer
+    kernel      - handles process and memory management, device communication,
+                    system calls, sets up filesystem, etc.
+    user space  - the shell, programs, graphics
+
+privilege levels
+    kernel mode - kernel has complete access to the hardware
+    user mode   - user space has limited access to the hardware
+
+system calls    - allow the user to perform privileged instructions on kernel mode
+                    and then switch back to user mode
+syscall - used by user space processes to ask kernel to do things
+        - kernel makes certain services available through the system call API
+        - the amount of services is fixed
+        - there is system call table and each syscall has a unique ID
+    - programs contain a system call wrapper
+    - wrapper invokes the system call, which will execute a trap
+    - trap gets caught by the system call handler and then references the
+        system call in the system call table
+strace ls   - view the system calls made by a process
+
+uname -r        - show the kernel release version
+sudo apt install linux-generic-lts-livid
+sudo apt dist-upgrade
+
+kernel files in /boot
+    vmlinuz             - the compressed Linux kernel
+    initrd/initramfs    - temp filesystem
+    System.map          - kernel symbol lookup table
+                        - used for debugging
+    config              - kernel configuration; which modules to be loaded
+                        - only used for debugging and bookkeeping
+
+kernel module   - code that can be loaded/unloaded on demand
+                - extend functionality without adding to the core kernel code
+
+lsmod                       - view currently loaded modules
+sudo modprobe bluetooth     - load a module and dependencies
+sudo modprobe -r bluetooth  - remove a module
+
+/etc/modprobe.d/modulename.conf     - load module during boot
+blacklist modulename                - prevent module from loading
+
+******** INIT SYSTEMS
+
+
+
+******** PROCESS UTILIZATION & MONITORING
+top     - see real-time info about currently running processes
+
+1st line of top     - same info from uptime command
+    current time
+    uptime  - how long system has been running
+    number of  users currently logged on
+    system load average
+
+2nd line of top     - tasks that are running, sleeping, stopped, or zombied
+
+3rd line of top     - CPU info
+    us      - user CPU time     - % spent running user's processes that aren't niced
+    sy      - system CPU time   - % spent running the kernel and kernel processes
+    ni      - nice CPU time     - % spent running niced processes
+    id      - CPU idle time     - % spent idle
+    wa      - IO wait time     - % spent waiting for IO
+                                - if low, the problem isn't disk or network I/O
+    hi      - hardware interrupts   - % spent serving hardware interrupts
+    si      - software interrupts   - % spent serving software interrupts
+    st      - steal time        - if running virtual machines, % of CPU time
+                                    spent stolen from you for other tasks
+
+4th line of top     - memory and swap usage
+
+Processes that are currently in use
+    USER    - effective user ID (the owner of the process)
+    PID     - process ID
+    PPID    - parent process ID
+    %CPU    - CPU time divided by run time
+    %MEM    - ratio of RSS to physical system memory
+    VSZ     - virtual memory usage of the entire process
+    RSS     - resident set size, the non-swapped physical memory used
+    TTY     - controlling terminal associated with the process'
+    STAT    - status code
+    START   - start time
+    TIME    - total CPU usage time
+    CMD     - name of the executable/command
+------------------------------------
+lsof        - displays a list of open files and their associated process
+    lsof .
+
+fuser       - identifies processes that are using files or sockets
+    fuser -v .
+
+process threads
+    - used to execute the same process
+    - referred to as lightweight processes
+    - all processes have at least one thread
+    - processes operate with their own isolated system resources
+    - threads can share system resources among each other -> more efficient
+
+ps m    - view process and their threads
+
+iostat  - monitor CPU and disk usage
+    %user
+    %nice
+    %system
+    %iwait
+    %steal
+    %idle
+
+    tps         - transfers (or IO requests) per second
+    kB_read/s   - amount of data read from the device per sec
+    kB_wrtn/s   - amount of data written to the device per sec
+    kB_read     - amount of data read from the device
+    kB_wrtn     - amount of data written to the device
+
+vmstat  - monitor memory usage
+systat  - system monitor
+
+crontab -e      - manage cronjobs
+    30 08 * * * /home/user/scripts/myscript
+
+    minute          (0-59)
+    hour            (0-23)
+    day of month    (1-31)
+    month           (1-12)
+    day of week     (0-7)   0 & 7 are denoted as Sunday
+    asterisks       match every value
+
+******** SYSTEM LOGGING
+syslog      - a service that sends info to the system logger
+syslogd     - a daemon that waits for event messages to occur
+                and filters the ones it wants to know about
+rsyslogd    - advanced version of syslog
+
+/var        - contains files that are expected to change in size and content
+
+/var/log    - system log files
+/var/lib    - packages and database files
+/var/spool  - print queues
+/var/temp   - temp files
+/var/ftp    - the FTP service
+/var/www    - the HTTP web service
+
+
+
+/var/log/syslog        - output of all logs, except auth messages
+
+/var/log/messages       - contains all non-critical and non-debug messages
+                        - bootup (dmesg), auth, cron, daemon, etc.
+
+/etc/rsyslog.conf       - files maintained by system logger on Debian
+
+logger -s 'message'     - send message to system logger
+
+/var/log/dmesg          - kernel ring buffer, drivers, kernel info and status
+                        - gets reset on every boot
+dmesg       - view dmesg log
+
+/var/log/kern.log       - kernel info and system events, also dmesg output
+
+/var/log/auth.log       - user login and authentication method used
+
+logrotate   - manages system log (which to keep, how to compress, etc.
+/etc/logrotate.d
+
+
+Edx LFS101x notes
+                                ******** GRAPHICAL INTERFACE ********
+
+X Window System - loaded as one of the final steps of the boot process
+startx          - command to start the X Window System
+xdpyinfo        - display info about an X server
+
+display manager - keeps track of displays being provided
+                - loads the X server
+                - handles graphical logins and starts the desktop environment
+    gdm     - GNOME
+    lightdm - Ubuntu
+    kdm     - KDE
+
+X server    - provides graphical services to applications (aka X clients)
+
+Wayland     - gradually replacing X Window System
+
+desktop environment
+session manager - starts and maintains the components of the graphical session
+window manager  - controls the placement and movement of windows, title bars & controls
+set of utilities
+
+gnome-tweak-tool
+gnome-tweaks
+
+file manager    - used to navigate the filesystem
+    Ctrl + 1    - icon view
+    Ctrl + 2    - list view
+    Ctrl + H    - show hidden files
+    Ctrl + F    - search text box
+    Ctrl + L    - location text box
+
+    Alt + F2    - run an application
+
+Ch 5 NETWORK  MANAGER
+
+systemd (?)
+network manager -
+    - list all available networks
+    - allow choice of wired, wireless, or mobile broadband network
+    - handle passwords
+    - set up VPNs
+
+CH 14 NETWORK OPERATIONS
+
+network     - a group of computers or devices connected together through comm channels,
+                such as cables or wireless media
+
+IP addresses
+    IPv4
+        - uses 32 bits
+        - only 4.3 billion unique addresses
+        - many are allotted and reserved, but not actually used
+        - considered inadequate for future needs
+        - divided into four 8-bit octets (bytes)
+                                                              Available   Unique hosts
+                                                              networks    per network
+            Octet 1     Octet 2     Octet 3     Octet 4
+CLASS A   Network ID    Host ID     Host ID     Host ID         126       16.7 M
+
+CLASS B   Network ID  Network ID    Host ID     Host ID        16384      65536
+
+CLASS C   Network ID  Network ID  Network ID    Host ID        2.1 M       254
+
+CLASS D   ------------- Multicast addresses -------------
+
+CLASS E   ----------- Reserved for future use -----------
+
+            Octet 1       Range of host addresses       CIDR
+CLASS A     1 - 127       1.0.0.0 - 127.255.255.255     /8
+
+CLASS B   128 - 191     128.0.0.0 - 191.255.255.255     /16
+
+CLASS C   192 - 223     192.0.0.0 - 223.255.255.255     /24
+
+
+
+    IPv6
+    - uses 128 bits
+    - allows for 3.4 x 10^38 unique addresses
+
+    - IPv4 and IPv6 don't always interoperate well
+    - adoption has not been a fast as originally intended
+
+NAT     - Network Address Translation
+    - effectively makes more addresses available
+    - enables the sharing of one IP address among many locally networked computers
+
+Name Resolution     - used to convert numerical IP addreses to human-readable hostnames
+
+
+Non-graphical browsers
+    Lynx    - earliest; configurable tex-based web browser
+    ELinks  - based on Lynx; can display tables and frames
+    w3m     - many features
+
+
+
+

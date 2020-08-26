@@ -1,0 +1,1002 @@
+
+To do:
+
+  scrape car sites for inventory numbers, new and used
+
+  https://realpython.com/beautiful-soup-web-scraper-python/
+  https://medium.com/analytics-vidhya/the-modern-way-of-web-scraping-requests-html-2567ba2554f4
+
+  rewrite pycheckpi to use BeautifulSoup
+  
+  download page source using BS4 and selenium                           (partly)
+  run BS4 and see if it returns attribute info like selenium (?)
+  take screenshot of page with selenium                                 (basic)
+  use pyautogui to click the mouse (instead of selenium)
+  
+API reading
+  https://www.redhat.com/en/topics/api/what-are-application-programming-interfaces
+  https://www.dataquest.io/blog/python-api-tutorial/
+  cURL
+  https://www.smashingmagazine.com/2018/01/understanding-using-rest-api/
+  https://restfulapi.net/soap-vs-rest-apis/
+
+
+web scraping              using a program to download and process content from the web
+
+scraping process examples
+  use requests.get() to create a Response object from the raw HTML
+  use selenium to launch a WebDriver and save the source as a text file
+  
+  use bs4.BeautifulSoup to parse the raw HTML from a Response objecy into a BeautifulSoup object
+
+
+modules
+  webbrowser              open HTML files in a browser window
+  requests                downloads files and web pages from the internet
+  bs4                     Beautiful Soup, used to parse HTML/XML 
+  selenium                launch and control a web browser
+                          can fill in forms and simulate mouse clicks
+
+  newspaper
+
+httpbin.org               website that accepts test requests and responds with data about the requests
+
+left off                  https://requests.readthedocs.io/en/master/user/advanced/#http-verbs
+
+requests module
+                          used for:
+  delete()
+  get()                   retrieve a given resource from a URL
+  head()
+  options()
+  patch()
+  post()                  send form-encoded data
+  put()
+
+downloading and saving response to a file (bytes or text)
+
+  import requests
+  response = requests.get('http://www.domain.com/file_to_get.txt')
+  response.raise_for_status()
+  
+  file_obj = open('local_file.txt', 'wb')       create a file object and enable writing of binary data
+  for chunk in response.iter_content(100000):   write binary data to file
+      file_obj.write(chunk)
+  file_obj.close()
+
+  file_obj = open('local_file.txt', 'wb', encoding='utf-8')
+  file_obj.write(response.text)
+  file_obj.close()
+
+
+Response object           contains the server's response to an HTTP request as well as
+                            the Request object that was sent to the server
+                          <class 'requests.models.Response'>
+                            
+  response = requests.get(url)        the Response object that was returned from the server
+  response.headers                    contains the headers sent from the server
+  response.request                    the PreparedRequest object that was sent by the user
+  response.request.headers            contains the headers of the PreparedRequest object
+
+
+Request object            what the user send to the server
+
+req = requests.request(method, url, **kwargs)
+req = requests.request('GET', 'http://httpbin.org/get', headers=headers)
+
+keyword args
+
+  method=                 'GET', 'OPTIONS', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE'
+  url=                    URL for the request object
+  params=                 a dict, a list of tuples, or a byte string to send in the query string
+  data=                   a dict, a list of tuples, a byte string or file object to send in the body
+  json=                   a serializable Python object to send in the body of the request object
+                          ignored if data= or files= is used
+                          using json= changes the content-type to application/json
+
+  headers=                dict of HTTP headers
+  cookies=                a dict or CookieJar object
+  files=                  a dict for multipart encoding upload
+                          {'file': open('fieldname', 'rb')}
+  auth=                   AuthObject to enable Basic/Digest/Custom HTTP Auth
+  timeout=                the time to wait for the server to send data before giving up
+    (t1, t2)              t1 = time to allow client to establish a connection to the server
+                          t2 = time to wait for a response once a connection is established
+                          
+  allow_redirects=        enable/disable GET, OPTIONS, POST, PUT, PATCH, DELETE, HEAD redirection
+  proxies=                dict mapping protocol to the URL of the proxy
+  verify=                 whether we verify the server's TLS certificate (True/False) or
+                            a path to a CA bundle to use (string)
+  stream=                 
+    False                 the body/content will be immediately downloaded (default)
+    True                  download is deferred until response.content is accessed
+                          only the response headers are auto downloaded, but connection remains open
+                          the connection is not released back to the pool until:
+                            all the data is consumed or Response.close() is called
+                          use a with statement to ensure the response is closd
+                            
+    
+  cert=                   path to SSL client cert file (.pem) -> string
+                          cert-key pair                       -> tuple
+
+
+query string              used to parameterize a get request
+
+message body              pass data through message body rather than params in the query string
+  POST, PUT, PATCH
+  data=                   pass the payload here
+                          can be a dict, a list of tuples, bytes, or a file-like object
+                          
+  json=                   serializes the data and adds the correct Content-Type header
+  
+  raise_for_status()      will raise an exception if there was an error downloading the file
+  iter_content(chunk_size)    returns chunks of the content on each iteration
+    chunk                 'bytes' datatype
+
+
+request object dir
+
+  auth
+  cookies
+  data
+  deregister_hook
+  files
+  headers
+  hooks
+  json
+  method
+  params
+  prepare()                   construct a PreparedRequest for transmission
+  register_hook
+  url
+
+response object dir           contains a server's response to an HTTP request
+
+  apparent_encoding
+  close()                     release the connection back to the pool
+  connection
+  content                     response payload in bytes
+  cookies                     a RequestsCookieJar object, acts like a dict
+  elapsed                     time between sending the request and getting back a response 
+  encoding
+  headers                     dict of headers (case-insensitive keys)
+  history                     a list of Response objects created in order to complete the request
+  is_permanent_redirect
+  is_redirect                 check if the response obtained is a well-formed HTTP redirect
+  iter_content()              iterates over the response data
+    chunk_size=               amount of data to read into memory during each each iteration
+
+  iter_lines()                iterates over the response data, one line at a time    
+  json()                      returns the JSON-encoded content of a response, if any 
+  links                       returns the parsed header links of the response, if any
+  next                        returns a PreparedRequest for the next request in a redirect chain
+  ok                          returns True is status code is less than 400
+  raise_for_status()          raises stored HTTPError, if one occurred               
+  raw                         undecoded body from urllib3.HTTPResponse
+                              must pass stream=True in the request to get the raw response 
+  reason
+  request                     the PreparedRequest that was sent to the server
+  status_code                 HTTP status code returned from the server
+  text                        response payload in unicode
+  url                         the URL that the response was sent from
+
+response header example
+
+  Date              : Sat, 01 Aug 2020 03:18:14 GMT
+  Content-Type      : text/html; charset=UTF-8
+  Transfer-Encoding : chunked
+  Connection        : keep-alive
+  Set-Cookie        : __cfduid=d68c08c8628a81cfeeb9e8a6820fa2f631596251894; expires=Mon, 31-Aug-20 03:18:14 GMT; path=/; domain=.dbader.org; HttpOnly; SameSite=Lax
+  Via               : 1.1 vegur
+  CF-Cache-Status   : DYNAMIC
+  cf-request-id     : 0449a00aaf0000e0eaadbfd200000001
+  Expect-CT         : max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+  Server            : cloudflare
+  CF-RAY            : 5bbc69244807e0ea-IAD
+  Content-Encoding  : gzip
+
+
+Session object            provides cookie persistence, connection-pooling, and configuration
+                          used to persist parameters across requests, i.e. reuse auth across multiple requests
+                          keep-alive is automatic for sessions
+connection pooling        reuse a connection from the pool for all the requests made to the same host
+
+requests.adapters
+transport adapter         let you define a set of configurations per service you’re interacting with
+                          must be mounted to a session
+
+  HTTPAdapter             
+    pool_connections=     number of urllib3 connection pools to cache
+    pool_maxsize=         max number of connections to save in the pool
+    max_retries=          applies only to failed DNS lookups, socket connections and connection timeouts
+    pool_block=           whether the connection pool should block for connections
+
+  session = requests.Session()
+  adapter = requests.adapters.HTTPAdapter(max_retries=3)
+  session.mount('http://', adapter)
+
+
+session object methods
+
+  close()                           close all adapters and the session
+  get_adapter()                     returns the appropriate connection adapter for a given URL
+  merge_environmentsettings()       merge environment variables into a session
+  mount()                           register a connection adapter to a prefix
+  prepare_request()                 create a PreparedRequest object for transmission
+  send()                            send a PreparedRequest object
+  request()                         create a Request object, prepare it, and sends it 
+                                    returns a Response object
+
+  delete()
+  get()
+  head()
+  options()
+  patch()
+  post()
+  put()
+                                                                                                              
+                                                       
+PreparedRequest object    Request objects must be prepared before sending
+                          validates header, serializes JSON content
+
+s = requests.Session()                                    create a Session object
+req = requests.Request('GET', 'http://www.google.com')    create a Request object
+prep_req = req.prepare()                                  create a PreparedRequest object
+                                                            Session-level state is not applied to this!
+                                                            use Session.prepare_request()
+pr = s.prepare_request(req)
+response = s.send(pr)                                     send the PreparedRequest 
+
+
+prepared request dir
+  
+  body
+  copy()
+  deregister_hook
+  headers
+  hooks
+  method
+  path_url                build the path URL to use
+  prepare()               prepare the entire request with the given parameters
+  prepare_auth
+  prepare_body
+  prepare_content_length
+  prepare_cookies         generates a Cookie header using cookielib
+  prepare_headers
+  prepare_hooks
+  prepare_method
+  prepare_url
+  register_hook
+  url                     build the path URL to use
+
+
+
+SSL Certificate Verification    SSL cert verification is enabled by default
+  verify=                       server side (?)
+  cert=                         client side (?)
+
+
+https://www.edureka.co/blog/python-requests-tutorial/       Sending Cookies and Headers
+
+requests.cookies.RequestsCookieJar object
+
+  add_cookie_header()     add correct cookie header to request (urllib.request.Request object)
+  clear()                 clear some or all cookies
+  clear_expired_cookies() discard all expired cookies, which are usually never sent back to the server
+  clear_session_cookies() discard all session cookies
+  copy()                  return a copy of the cookie jar
+  domain_re
+  dots_re
+  extract_cookies()       extract cookies from response, where allowable given the request
+  get()             dict-like get() to resolve naming collisions from using one jar over multiple domains
+                          supports optional domain and path args
+
+  get_dict()
+  get_policy()            return the CookiePolicy used
+  items()                 return a list of name-value tuples from the jar
+  iteritems()             return an iterator of names-value tuples
+  iterkeys()              return an iterator of names of cookies
+  itervalues()            return an iterator of values of cookies
+  keys()                  return a lists of names of cookies
+  list_domains()          list all domains in the jar
+  list_paths()            list all pathss in the jar
+  magic_re
+  make_cookies()          return a sequence of Cookie objects extracted from a Response object
+  multiple_domains()      bool, if there are multiple domains in the jar
+  non_word_re
+  pop()                   MutableMapping methods
+  popitem()               MutableMapping methods
+  quote_re
+  set()             dict-like set() to resolve naming collisions from using one jar over multiple domains
+                          supports optional domain and path args
+
+  set_cookie()            set a cookie, w/o checking if it should be set
+  set_cookie_if_ok()      set a cookie if policy says it's OK
+  set_policy()
+  setdefault()            MutableMapping methods
+  strict_domain_re
+  update()                update jar with cookies from another jar or dict-like
+  values()                return a list of values of cookies
+
+
+
+
+
+
+
+
+
+https://towardsdatascience.com/top-5-beautiful-soup-functions-7bfe5a693482?gi=9b5a91275a75
+
+  
+BeautifulSoup docs        https://www.crummy.com/software/BeautifulSoup/bs4/doc/
+
+objects
+
+  Comment
+  BeautifulSoup object          represents the entire parsed document 
+  NavigableString
+  Tag object                    an HTML or XML tag that is part of a parse tree, 
+                                  along with its attributes and contents
+  
+    tag.name                    tag name
+    tag.attrs                   dict of the tag's attributes
+    tag['attr']                 value of attr
+    tag.child1.child2           children tags are accessible through dot notation
+    tag.child1.child2['attr']
+    
+PageElement                     contains the navigational information for some part of the page
+
+  
+
+Beautiful Soup module
+
+  import requests, bs4
+  url = 'http://www.google.com'
+  resp_obj = requests.get(url)          create a Response object from the web page's text
+  resp_obj.raise_for_status()           check for exception, end the program if something goes wrong
+  
+  soup_obj = bs4.BeautifulSoup(resp_obj.text, 'html.parser')    parse HTML/XML into a BeautifulSoup object
+  soup_obj = bs4.BeautifulSoup(file_obj.read(), 'html.parser')    
+
+  tag_objs = soup_obj.select('HTML_tag')  returns a list of all the HTML_tag elements
+  tag_obj = soup_obj.select('HTML_tag')[0]  returns the first tag object
+  tag_attr = tag_obj.get('attr')
+
+BS4 methods
+  select()                              returns a list of Tag objects (elements)
+                                        list will contain one Tag object for every match in BS object
+                                        
+  p_elems = soup_obj.select('p')        list of all paragraph elements / tag objects
+  p_elem = soup_obj.select('p')[0]      the complete first paragraph element / tag object
+
+  select(CSS selector)                  Will match:
+  soup.select('div')                    elements named <div>
+  soup.select('#author')                the element with an id attribute of 'author'
+  soup.select('.notice')                elements that use CSS class attribute named 'notice'
+  soup.select('p #author')              elements with an id attribute 'author' inside a <p> element
+  soup.select('div span')               elements named <span> within an element named <div>
+  soup.select('div > span')             elements named <span> DIRECTLY within an element named <div>
+                                          with no other element in between
+  soup.select('input[name]')            elements named <input> w/ a 'name' attribute of any value
+  soup.select('input[type="button"]')   elements named <input> w/ attribute named 'type' & value of 'button'
+
+Tag objects                             how Beautiful Soup represents an HTML element
+  tag_objects = soup_obj.select()
+  tag_obj = tag_objects[index]          single Tag object
+  
+  str(tag_objects[index]                returns the HTML tag represented by the Tag object value
+  tag_objects[index].getText()          returns inner HTML of the tag
+  tag_objects[index].attrs              returns a dict with all the HTML attributes & values of the tag
+
+Tag object methods
+  tag_obj.get('attr')                   access attribute values of an tag object / element
+  attr_value = tag_obj.get('attr')
+
+
+  soup.find(attrname='attrname')
+
+
+BeautifulSoup() object
+
+  append
+  attrs
+  builder
+  can_be_empty_element
+  cdata_list_attributes
+  childGenerator
+  children
+  clear()                               wipeout all children of the PageElement
+  contains_replacement_characters
+  contents
+  currentTag
+  current_data
+  declared_html_encoding
+  decode()                    returns the PageElement as a string
+  decode_contents()           returns the PageElement's contents as a Unicode string
+  decompose()                 destroys the PageElement and its children
+  descendants
+  element_classes
+  encode()                    returns the PageElement as a byte string
+  encode_contents()           returns the PageElement contents as a string
+  endData
+  extend
+  extract()
+  fetchNextSiblings
+  fetchParents
+  fetchPrevious
+  fetchPreviousSiblings
+  find()                      search children of the PageElement and return the first match
+  
+    name=                     filter by tag name
+    attrs=                    a dict of filters on attr values
+    recursive=                
+      True                    recursively search the PageElement's children
+      False                   only search the direct children
+      
+    limit=                    max number of hits
+    kwargs                    a dict of attr values
+    
+  
+  
+  findAll()                   find_all()
+  findAllNext
+  findAllPrevious
+  findChild
+  findChildren
+  findNext
+  findNextSibling
+  findNextSiblings
+  findParent
+  findParents
+  findPrevious
+  findPreviousSibling
+  findPreviousSiblings
+  find_all                    returns a list of all matches (ResultSet object)
+  find_all_next
+  find_all_previous
+  find_next
+  find_next_sibling
+  find_next_siblings
+  find_parent
+  find_parents
+  find_previous
+  find_previous_sibling
+  find_previous_siblings
+  format_string
+  formatter_for_name
+  get()                       return the value of the attribute for the tag   ( like dict.get() )
+  getText()                   get_text()
+  get_attribute_list('attr')  return the attribute values in a list
+  get_text()                  return all child strings, concatenated with the separator
+  
+    separator=
+    strip=                    strings will be stripped before being concatenated
+    types=                    a tuple of NavigableString subclasses
+  
+  handle_data
+  handle_endtag
+  handle_starttag
+  has_attr()                  does PageElement have this attr
+  has_key
+  hidden
+  index()                     find the index of a child PageElement in contents       (not sure usage)
+  insert
+  insert_after
+  insert_before
+  isSelfClosing
+  is_empty_element
+  is_xml
+  known_xml
+  markup
+  name
+  namespace
+  new_string
+  new_tag
+  next
+  nextGenerator
+  nextSibling
+  nextSiblingGenerator
+  next_element
+  next_elements
+  next_sibling
+  next_siblings
+  object_was_parsed
+  original_encoding
+  parent
+  parentGenerator
+  parents
+  parse_only
+  parserClass
+  parser_class
+  popTag
+  prefix
+  preserve_whitespace_tag_stack
+  preserve_whitespace_tags
+  prettify()                  pretty-print the PageElement as a string (indent)
+  previous
+  previousGenerator
+  previousSibling
+  previousSiblingGenerator
+  previous_element
+  previous_elements
+  previous_sibling
+  previous_siblings
+  pushTag
+  recursiveChildGenerator
+  renderContents
+  replaceWith()               replace a NavigableString with text
+  replaceWithChildren
+  replace_with
+  replace_with_children
+  reset
+  select
+  select_one
+  setup
+  smooth
+  string                      get the single string within the PageElement
+  strings                     a generator of NavigableStrings
+  stripped_strings
+  tagStack
+  text                        text inside the Tag object
+  unwrap
+  wrap
+
+
+
+
+
+
+
+
+
+
+selenium module
+
+check out keys                          help(webdriver.common.keys)
+
+
+user-agent string                       identifies the web browser
+                                        included in all HTTP requests
+                                        https://www.whatsmyua.info/
+  
+  requests module user agent string     'python-requests/2.21.0'
+
+requires a separate driver download and install (put in Python install dir)
+  geckodriver
+  chromedriver
+
+https://www.selenium.dev/documentation/en/webdriver/
+https://www.selenium.dev/selenium/docs/api/py/index.html         source code
+
+WebDriver object                        represents the browser
+WebElement object                       represents a particular DOM node 
+
+WebDriver methods                       used to find elements on a page
+  find_element_*                        returns a single WebElement object
+  find_elements_*                       returns a list of objects
+    
+exception if no element found           NoSuchElementException
+
+
+find_element_by_css_selector()
+
+    ^                                   match a prefix
+                                        "HTML_tag[attr_name^='value']"
+                                        
+    $                                   match a suffix
+                                        "HTML_tag[attr_name$='value']"
+                                        
+    *                                   match a sub-string
+                                        "HTML_tag[attr_name*='_pattern_']"
+                                        
+    :                                   match a string using contains method.
+                                        "HTML_tag:contains('_pattern_')"
+
+    #                                   match by ID
+                                        "HTML_tag#id='id_value'"
+                                        
+    .                                   match by class
+                                        "HTML_tag.class_value"
+    
+  multiple attributes                   "HTML_tag[attr1='value1'][attr2='value2']"
+  
+  child elements  (shitty examples !!!)
+    >                                   direct child                        
+                                        parent_elem>child_elem
+
+  multiple child elems in a parent that don't have any attributes     
+                                        
+    2nd child of the parent tag         "parent_tag#class_name child_tag:nth-of-type(2)"
+    last child                          "parent_tag#class_name child_tag:last-child"
+
+
+
+usage
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys                   
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.actions import key_actions                 (?)
+
+browser = webdriver.Firefox()                                     create WebDriver object, launch browser
+browser.get('https://www.google.com')                             go to url
+elem = browser.find_by_link_text('Text')\                         create WebElement object
+elem.click()
+elem = browser.find_element_by_name('search')
+elem.send_keys('search terms')                                    enter text into WebElement
+elem.send_keys(Keys.ENTER)
+body_elem = browser.find_element_by_tag_name('body')
+body_elem.send_keys(key_actions.key_down(CONTROL))
+body_elem.send_keys('t')
+body_elem.send_keys(key_actions.key_up(CONTROL)) 
+action = ActionChains(browser)                                    create ActionChains object
+# create a list of keys to press
+action.click(on_element= elem).perform()
+
+
+
+https://www.selenium.dev/documentation/en/webdriver/web_element/
+
+WebElement attributes and methods
+  clear()                                           clear text from a text field or text area elements
+  click()
+  find_element()
+  find_element_by_class_name()                                     
+  find_element_by_css_selector()                                   
+  find_element_by_id()                                             
+  find_element_by_link_text()                                      
+  find_element_by_partial_link_text()                              
+  find_element_by_name()                                           
+  find_element_by_tag_name()                        case-insensitive
+  find_element_by_xpath()
+  
+  find_elements()
+  find_elements_by_class_name()                                     
+  find_elements_by_css_selector()                                   
+  find_elements_by_id()                                             
+  find_elements_by_link_text()                                      
+  find_elements_by_partial_link_text()                              
+  find_elements_by_name()                                           
+  find_elements_by_tag_name()                       case-insensitive
+  find_elements_by_xpath()
+
+  get_attribute()                       
+  get_property
+  is_displayed()
+  is_enabled()
+  is_selected()
+  screenshot()                          save a screenshot of the element to a PNG file
+  send_keys()                           simulates typing into an element
+  submit()                              submit a form
+  value_of_css_property()
+
+WebElement attributes
+  id                                    internal ID used by selenium
+  location                              location of the element in the renderable canvas
+  location_once_scrolled_into_view
+  parent                                internal reference this element was found from
+  rect                                  dict with the size and location of the element
+  screenshot_as_base64
+  screenshot_as_png
+  size
+  tag_name
+  text                                  text of the element
+
+
+Firefox WebDriver parameters
+  firefox_binary=                       FirefoxBinary object to use
+                                        full path to Firefox binary
+                                        if undefined, system's default Firefox install is used
+                                        
+  firefox_options=                      Options object to use
+  firefox_profile=                      FirefoxProfile object to use
+                                        if undefined, a fresh temp profile is used
+  executable_path='geckodriver'
+  timeout=                              used with extension connection
+  service_args=                         list of args passed to driver service
+  service_log_path='geckodriver.log'
+
+
+WebDriver object dir()
+
+  add_cookie
+  application_cache
+  back()
+  binary
+  capabilities
+  close()                               close the current window and keep driver active
+  command_executor
+  context
+  create_web_element
+  current_url
+  current_window_handle
+  delete_all_cookies
+  delete_cookie
+  desired_capabilities
+  error_handler
+  execute
+  execute_async_script
+  execute_script
+  file_detector
+  file_detector_context
+
+  firefox_profile                       FirefoxProfile object used by the driver
+  forward()
+  fullscreen_window()
+  get(url)                              opens url in webdriver window
+  get_cookie
+  get_cookies
+  get_log
+  get_screenshot_as_base64
+  get_screenshot_as_file
+  get_screenshot_as_png
+  get_window_position()                 position of the top left corner
+                                        returns a dict with 2 keys for x and y
+    get_window_position().get('x')      
+    get_window_position().get('y')
+
+  get_window_rect()                     returns a dict with 4 keys for position and size
+  get_window_size()                     returns a dict with 2 keys for width and height
+  implicitly_wait
+  install_addon()                       install xpi from absolute path
+  log_types
+  maximize_window()
+  minimize_window()                     send to taskbar
+  mobile
+  name                                  name of the browser being emulated (?)
+  orientation                           not available for all drivers
+  page_source                           stores the source code from get()  (?)
+  profile
+  quit()                                close all windows and tabs for the session
+                                        close browser process
+                                        close background driver processes
+  refresh()
+  save_screenshot
+  service
+  session_id
+  set_context
+  set_page_load_timeout
+  set_script_timeout
+  set_window_position(x, y)             move upper-left corner of window to this position
+  set_window_rect(x, y, width, height)  set window position and size
+  set_window_size(width, height)        restore window and set the size
+  start_client
+  start_session
+  stop_client
+  switch_to
+  switch_to_active_element
+  switch_to_alert
+  switch_to_default_content
+  switch_to_frame
+  switch_to_window
+  title                                 the title of the active window/tab (?)
+  uninstall_addon()                     uninstall addon using its identifier
+  w3c
+  window_handles
+
+
+action
+
+ActionChains methods
+  click()
+  click_and_hold()
+  context_click()
+  double_click()
+  drag_and_drop()
+  drag_and_drop_by_offset()
+  key_down()
+  key_up()
+  move_by_offset()
+  move_to_element()
+  move_to_element_with_offset()
+  pause()                               pause all inputs for specified milliseconds
+  perform()                             perform the actions
+  release()                             release mouse button press from element
+  reset_actions()                       clear actions stored in action object
+  send_keys()
+  send_keys_to_element()
+
+
+Keys                                    for use with send_keys()
+
+  ADD             END         HELP              NUMPAD6   
+  ALT             ENTER       HOME              NUMPAD7   
+  ARROW_DOWN      EQUALS      INSERT            NUMPAD8   
+  ARROW_LEFT      ESCAPE      LEFT              NUMPAD9   
+  ARROW_RIGHT     F1          LEFT_ALT          PAGE_DOWN 
+  ARROW_UP        F10         LEFT_CONTROL      PAGE_UP   
+  BACKSPACE       F11         LEFT_SHIFT        PAUSE    
+  BACK_SPACE      F12         META              RETURN   
+  CANCEL          F2          MULTIPLY          RIGHT    
+  CLEAR           F3          NULL              SEMICOLON
+  COMMAND         F4          NUMPAD0           SEPARATOR
+  CONTROL         F5          NUMPAD1           SHIFT    
+  DECIMAL         F6          NUMPAD2           SPACE    
+  DELETE          F7          NUMPAD3           SUBTRACT 
+  DIVIDE          F8          NUMPAD4           TAB      
+  DOWN            F9          NUMPAD5           UP       
+
+
+
+create Firefox profile for selenium
+
+Run firefox.exe -p
+create profile
+name profile
+create local folder to store profile files
+choose that folder
+start Firefox with that profile to initialize
+
+note:
+  changes are not saved to profile when used with geckodriver/selenium
+  must use profile with firefox.exe to make lasting changes
+
+from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
+profile_dir = 'F:\\dir1\\profile_dir'
+fp = FirefoxProfile(profile_dir)
+browser = webdriver.Firefox(firefox_profile=fp)
+
+
+FirefoxProfile objects methods
+
+  accept_untrusted_certs
+  add_extension()                       add xpi file to profile (?)
+  assume_untrusted_cert_issuer
+  default_preferences
+  encoded
+  extensionsDir
+  native_events_enabled
+  path                                  the profile dir currently being used
+  port                                  the port that WebDriver is working on
+  profile_dir
+  set_preference()                      key, value from about:config
+  set_proxy()
+  tempfolder
+  update_preferences()
+  userPrefs
+
+
+
+options
+from selenium.webdriver.firefox.options import Options
+opts = Options()
+opts.headless = True
+browser = webdriver.Firefox(options=opts)
+
+
+Option object methods
+
+  accept_insecure_certs
+  add_argument                Add argument to be used for the browser process
+  arguments                   list of browser process args 
+  binary_location
+  capabilities
+  preferences                 returns a dict of preferences set in the session (?)
+                              about:config
+                              written to the profile before starting
+  profile                     returns the Firefox profile to use
+                          (?) set with
+  proxy
+  set_capability
+  set_headless()
+  set_preference()            name, value
+  to_capabilities
+
+Option object attributes
+  binary                      absolute path to the custom Firefox binary to use
+  headless
+  log=
+
+
+
+http module
+
+  client
+  cookies
+  cookiejar
+  server
+  HTTPStatus
+
+
+
+urllib module
+packages
+  error
+  parse
+  request
+  response
+  robotparser
+
+urllib.request
+  addclosehook           
+  addinfourl              
+  base64                  
+  bisect                  
+  build_opener            
+  contextlib              
+  email                   
+  ftpcache                
+  ftperrors               
+  ftpwrapper              
+  getproxies              
+  getproxies_environment  
+  getproxies_registry     
+  hashlib                 
+  http                    
+  install_opener          
+  io                      
+  localhost               
+  noheaders               
+  os                      
+  parse_http_list         
+  parse_keqv_list         
+  pathname2url            
+  posixpath               
+  proxy_bypass            
+  proxy_bypass_environment
+  proxy_bypass_registry   
+  quote                   
+  re                      
+  request_host            
+  socket                  
+  ssl                     
+  string                  
+  sys                     
+  tempfile                
+  thishost                
+  time                    
+  unquote                 
+  unquote_to_bytes        
+  unwrap                  
+  url2pathname            
+  urlcleanup()            cleanup temp files from urlretrieve calls              
+  urljoin                 
+  urlopen()               open a URL or Request object and return HTTPResponse object                
+  urlparse                
+  urlretrieve()           retrieve a URL into a temporary location             
+  urlsplit                
+  urlunparse              
+  warnings
+
+HTTPResponse to urllib.request.urlopen() 
+  begin()
+  chunk_left
+  chunked
+  close()                 flush and close the IO object
+  closed
+  code
+  debuglevel
+  detach()                disconnect buffer from its raw stream and return it
+  fileno                  return the undelying file descriptor if one exists
+  flush()                 flush write buffers
+  fp
+  getcode()               return the HTTP status code
+  getheader()             return the value of the header
+  getheaders()            return a list of 2-tuples (header, value)
+  geturl()                return the real URL of the page
+  headers
+  info()                  returns object containing meta-info associateed with the URL
+  isatty()                return whether it's an interactive stream
+  isclosed()
+  length
+  msg
+  peek()
+  read()                  read and return up to N bytes
+  read1()
+  readable
+  readinto()              read up to N bytes into a bytearray, returns the number of bytes read
+  readinto1
+  readline()              read and return a line from the stream
+  readlines()             return a list of lines from the stream
+  reason
+  seek()                  change the stream position
+  seekable()              return if the object supports random access
+  status
+  tell()                  return to current stream position
+  truncate()              truncate the file to size bytes
+  url
+  version
+  will_close
+  writable
+  write()                 write the given buffer to the IO stream
+  writelines              write a list of lines to the stream

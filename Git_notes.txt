@@ -1,0 +1,33 @@
+
+documentation             https://docs.github.com/en/github
+
+main                      definitive branch (production)
+                          anything in main is always deployable
+branch                    use for experiments and trying new ideas
+merge                     merge a branch into main
+commits                   saved changes (add, edit, delete a file) to a branch
+  commit message          describes why a change was made, captures history of changes
+pull request              initiate dicsussion about commits
+                          propose changes and requesting someone review & pull your contribution
+                            and merge it into their branch
+                          show diffs bewteen the branches
+
+  merge commit
+  squash and merge
+  rebase and merge
+
+  delete branch
+  
+  fork & pull model       PRs used to notify project maintainers about changes to consider
+  shared repo model       PRs help start code review and discussion of changes before being merged
+
+deploy                    from another branch, deploy changes to verify in production
+                          roll back by deploying the existing main branch
+
+issues
+pull requests
+actions
+project boards
+wiki
+
+

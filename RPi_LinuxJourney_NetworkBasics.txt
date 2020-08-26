@@ -1,0 +1,202 @@
+******** OSI MODEL
+Open Systems Interconnection model
+    - shows how packet traverses through a network in seven different layers
+
+******** TCP/IP MODEL
+- uses the TCP/IP protocol suit to specify how data should be gathered,
+    addressed, transmitted and routed through a network
+
+data encapsulation  - when a layer protocol adds data to the packet header
+
+Layer name  | application -> transport -> internet   -> data link   -> physical
+Data unit   |    packet   ->  segment  -> datagrams  ->  frames
+Header info |     data    ->  port #   -> IP address -> MAC address -> interface
+
+application layer   - formats the packet for the appropriate transport protocol
+    - HTTP (hypertext transfer protocol)
+    - SMTP (simple mail transfer protocol)
+    - FTP (file transfer protocol)
+    - DNS (domain name system)
+    - SMNP (simple network management protocol)
+    - SSH (secure shell)
+
+    - packets consist of a header and a payload
+        header  - packet's origin and destination info
+        payload - the actual data being sent
+
+transport layer     - adds port number of the application to the header
+    - encapsulates the application data into transport protocol data units
+    - splits the packets into segments and attaches a header to each
+
+    - TCP (transmission control protocol)
+        - uses a stream of bytes (serial)
+        - uses segments and ports
+        - connection-oriented protocol      - reliable
+        - SYN segment -> SYN-ACK segment -> ACK segment - three-way handshake
+        - headers contain send/receive ports, the order of the segments, and a checksum
+
+    - UDP (user datagram protocol)
+        - uses messages and ports
+        - connectionless protocol
+        - three-way handshake not required  - less reliable
+        - headers contain send/receive ports, length of the packet, and a checksum
+        - some data loss exchanged for faster data transmission
+
+    - SCTP (stream control transmission protocol)
+        - uses a sequence of messages
+        - multi-streaming -> several independent streams of chunks (parallel)
+        - uses chunks (data chunks and control chunks)
+        - used by SSH, WebRTC (web real-time communication)
+
+internet layer      - adds IP addresses to the header
+    - converts the segments into datagrams, then determines the IP address to send to
+    - IP header includes the IP address of both send & receive hosts, the length
+        of the datagram, and the datagram sequence order
+    - this info is provided if the datagram has to be fragmented because it exceeds the
+        allowable byte size for network packets
+
+    - IP (internet protocol)                   - routes packets from host to host
+    - ICMP (internet control message protocol) - error msgs and debug info
+
+data link layer - adds MAC addresses to the header
+    - formats the IP datagram into a frame
+    - attaches a third header and a footer to "frame" the datagram
+    - framer header attaches the source & destination MAC addresses, checksums/CRC,
+        and packet separators so the receiver can tell when a packet ends
+
+    - ARP (address resolution protocol)
+        - finds the MAC address associated with an IP address
+        - used within the same network, otherwise a routing system is used to determine
+            the next router that would receive the packet until on the same network
+        - first, the ARP look-up table is used
+        - otherwise, a broadcast message is sent to all hosts
+        - the interface with the IP will respond with an ARP packet containing the
+            IP address and the MAC address
+
+    MAC address - media access control
+        - unique, never changes
+        - OUI - organizationally unique identifier (1st 3 bytes)
+    IP address -
+    hostname - ties the IP address to human readable name
+    - the link layer forwards the frame out through the interface
+
+physical layer
+    - receives the frames and converts the IP addresses into hardware addresses
+    - sends the frame out over the network media
+
+DHCP (dynamic host configuration protocol)
+    - assigns IP addresses, subnet masks, and gateways to hosts
+  DHCP messages
+    DHCP DISCOVER   - host broadcasts to search for DHCP servers
+    DHCP OFFER      - servers reply with: lease time, subnet mask, IP address, etc.
+    DHCP REQUEST    - host broadcast to let all servers know which offer was accepted
+    DHCP ACK        - acknowledgement sent by server
+
+******** SUBNETTING
+
+ifconfig -a     - view IP address
+
+IPv4            - 4 octets (1 octet is equal to 8 bits, which is 1 byte)
+IPv6            -
+
+host address
+subnet address
+broadcast address
+
+CIDR (classless inter-domain routing)
+    IP address: 123.12.24.0/24
+    32 - 23 = 9 bits
+    2^9 = 512 - 2 hosts = 510 available host IP addresses
+
+NAT (network address translation)
+    - host1 sends request through the router to host2
+    - router opens it's own connection to host2
+    - router act as intermediary
+
+******** ROUTING
+
+hop     - each hop is an intermediate device
+
+switching   - RXing, processing, and forwarding data to destination
+routing     - process of creating the routing table, to improve switching
+flooding    - packet sent to every outgoing link except the one it arrived on
+
+sudo route -n       - view local machine's routing table
+
+local network packet    - ARP
+outside of network      - packet needs MAC address of destination
+                            - ARP request gets MAC of the default gateway
+                            - looks at routing table
+
+convergence - part of the routing table update process
+            - when routers in a network agree about the topology
+
+2 primary routing protocols
+    distance vector protocols
+        - uses hop count to choose route
+        - great for small networks
+
+        RIP (routing information protocol)
+            - broadcasts table to every router in the network every 30 secs
+            - limits its hop count to 15
+
+    link state protocols
+        - use shortest path
+        - great for large networks
+        - more complex
+        - fast convergence
+        - only sends out updates to neighboring routes
+
+        OSPF (open shortest path first)
+            - only updates the routing table if there was a change
+            - no hop limit
+
+BGP (border gateway protocol)
+    - how the internet runs
+    - used to collect and exchange routing info among autonomous systems
+
+******** DNS
+- allows access to host using a name instead of an IP address
+
+name server
+    authoritative   - hold the actual DNS records
+    recursive       - ask other servers until authoritative server is found
+                    - can also cache information
+
+    zone file       - how the name server stores info about the domain
+                    - or where to get info about a domain
+                    - comprised of resource records
+
+resource records    - contain info about hosts, namesevers, etc.
+    record name
+    TTL             - the time to keep a record before obtaining a new one
+    class           - namespace of the record info
+                    - most commonly IN is used for internet
+    type            - type of info stored
+                    - A = address, MX = mail exchanger
+    data            - depends on the record type
+                    - can contain an IP address if record type A
+
+DNS process
+    local host file     - /etc/hosts
+    local DNS server    - recursive DNS hosted by the ISP
+    root server         - 13 for the internet
+                        - mirrored and distributed around the world, really 100's
+                        - make referrals to top-level domain DNS servers
+    top-level domain    - name server that knows about the particular domain name
+    authoritative DNS server    - has the zone file with the resource record for 'www'
+
+/etc/hosts          - contains mapping of hostnames to IP addresses
+/etc/resolv.conf    - traditionally used to map DNS servers for effecient lookups
+
+BIND (Berkeley internet name domain)
+            - most popular DNS server on the internet
+DNSmasq
+            - lightweight and easier to configure
+            - comes with tools for DHCP and DNS
+PowerDNS    - full-featured and similar to BIND
+            - reads info from mulitple databases (MySQL, PostgreSQL, etc.)
+
+nslookup www.google.com
+
+dig (domain information groper)     - dig www.google.com

@@ -1,0 +1,123 @@
+left off:
+CH 19 - User Accounts
+
+create venv                   python -m venv ll_env
+activate venv                 ll_env\Scripts\activate
+install django==2.2.0         pip install django==2.2.0
+create Django project         django-admin startproject learning log .
+  files created:
+    manage.py                 feeds commands to Django
+    settings.py               controls how Django interacts with your system, manages project
+    urls.py                   tell Django which pages to build in response to browser requests
+    wsgi.py                   helps Django serve the files it creates
+                              web server gateway interface
+
+create a database             python manage.py migrate
+  migrate                     create/modify the database
+  
+start development server      python manage.py runserver (port 8000 is default)
+prep for app creation         python manage.py startapp learning_logs
+  __init.py__
+  admin.py
+  apps.py
+  migrations
+  models.py                   tells Django how to work with the data stored in the app
+                              see Django Model Field Reference
+  tests.py
+  views.py
+
+activate model                add app to settings.py INSTALLED_APPS
+define model in models.py     inherits from models.Model, defines a model's basic functionality
+enable db to use model data   python manage.py makemigrations learning_logs
+  0001_initial.py             creates a table for the model data in the database
+apply migration/modify db     python manage.py migrate
+
+create admin account          python manage.py createsuperuser
+register Topic model in admin.py    
+  from .models import Topic   import the model to be registered, look in same dir as admin.py
+  admin.site.register(Topic)  manage the model through the admin site (http://localhost:8000/admin/)
+
+add Topic at admin site                    
+define data entry models      models.py, Entry model
+  many-to-one relationship    many entries associated with one topic
+  
+                              python manage.py makemigrations learning_logs
+                              python manage.py migrate
+register Entry model 
+  from .models import Topic 
+  admin.site.register(Topic)
+  
+Django shell                  interactive environment for testing/troubleshooting
+                              allows working with a project's data in a terminal session
+                              useful for confirming your code retrieves the data you want
+
+
+making web pages in Django
+  define URL pattern          urls.py
+  define view function        views.py
+  write template              *.html  
+  
+map URL pattern to views      describes the way the URL is laid out
+  base URL                    homepage
+  urlpatterns variable        list that stored individual pages able to be requested
+  path() functions
+    3 args:
+      ''                      string to help route request to view, searches urlpatterns
+                              empty string matches base URL
+      views.index             which function to call from views module
+      keyword name='index'    of the URL pattern
+      
+writing a view function       retrieves and processes the page data 
+render function               renders the page using a template
+
+def index(request):
+    """The homepage for the site."""
+    return render(request, 'learning_logs/index.html')  
+
+template                      contains the structural code of the page
+                              see Django template documentation
+                              
+base template (base.html)     contains elements common to all pages
+  {%...%}                     template tag
+  {% block name1 %}           block tag, placeholder  <-- not inherited by child templates
+  {% endblock name1 %}
+  {% extends "base.htlml" %}  tells child template where to inherit from
+
+URL mapping for models                                            urls.py
+  path('model01s/', views.model01s, name='model01s'),
+
+
+view function for models                                          views.py
+    from .models import Model01                                   import model 
+
+    def model01s(request):                                        define view function
+        model01s = Model01.objects.order_by('date_added')         list of objects in Model01
+        context = {'model01s':model01}                            key-value pair for template
+        return render(request, 'baseDir/model01s.html', context)
+
+template for models
+  {% extends "base_dir/base.html" %}
+
+  {% for item in list %}                <-- template for loop
+      {{ item }}                        <-- template variable
+  { empty }
+      HTML code                         <-- what to do if list is empty
+  { endfor }
+  |                                     <template filter modifies a template variable
+  
+URL mapping for individual model                            
+  uses model's id attribute 
+  path('model01s/<int:model01_id>/', views.model01s, name='model01s'),
+
+view function for individual model                                views.py
+  def modelA(request, modelA_id):
+    """Show a single modelA and all its entries."""
+    modelA = ModelA.objects.get(id=modelA_id)
+    entries = modelA.entry_set.order_by('-date_added')
+    context = {'modelA': modelA, 'entries': entries}
+    return render(request, 'baseDir/modelA.html', context)
+
+template for individual model
+
+query                         see Django queries documentation
+queryset

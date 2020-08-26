@@ -1,0 +1,473 @@
+﻿PyAutoGUI module
+
+mouse functions
+  move()                        same as move relative
+  moveRel()                     move mouse relative to current position, w/ optional duration=
+  moveTo()                      move mouse to a specific position, w/ optional duration=  
+
+  onScreen()                    tests if coordinates are within the screen resolution
+
+  click()                       click mouse button down and up at current position
+    x=
+    y=                          
+    clicks=                     number of clicks 
+    interval=                   secs between clicks
+    button=                     left, mid, right
+
+  leftClick()                     
+  middleClick()                   
+  rightClick()                  
+  doubleClick()                   
+  tripleClick()                   
+
+  drag()                          
+  dragRel()                       
+  dragTo()
+  
+  mouseDown()                     
+  mouseUp()                       
+  
+  scroll()                      wrapper for vscroll()
+  hscroll()                     scroll mousewheel vertically, available on Mac and linux
+  vscroll()                     scroll mousewheel vertically a number of  clicks'
+  
+  size()                        returns the current screen resolution as as named tuple
+  position()                    returns the current mouse position as a named tuple
+  displayMousePosition()        
+  mouseInfo()                   starts MouseInfo app to display XY position and RGB color info
+
+keyboard functions
+  hotkey()                      presses keys in the order passed, releases in reverse order
+  keyDown()                       
+  keyUp()                         
+
+  write()                       types the chars in the passed string
+                                single-char keys only
+    interval=                   delay between key presses
+
+  typewrite()                   enter text string or list of keys to press
+
+  keyDown()                     
+  keyUp()                       
+  press()                       combination of keyDown and keyUp
+                                accepts a list of keys
+    interval=                   delay bewteen presses
+    presses=                    
+
+
+message box functions
+  alert()                       message window with default OK button
+    text=
+    title=
+    button=    
+    
+  confirm()                     message window with default OK and Cancel buttons, returns strings
+    text=
+    title=
+    buttons=                    accepts list of values for buttons
+       
+  prompt()                      accept text input from user
+    text=                       message to user
+    title=
+    default=                    default input/text to appear in the text box
+    
+  password()                    accept text input from user, hidden by mask char
+    text=
+    title=
+    default=
+    mask=                       char to hide input
+
+screenshots
+  screenshot()                  returns a Pillow/PIL object
+  screenshot('filename')        returns a Pillow/PIL object and saves it to a file
+    region=                     accepts a four-integer tuple (left, top, width, height)
+
+  
+
+  locateOnScreen()              finds an image if located on the screen
+                                returns four-integer tuple of location
+    confidence=                 specifies the accuracy, in case some pixels are different
+                                requires OpenCV
+  
+  locateAllOnScreen()           returns a generator of all locations found on the screen
+  locateCenterOnScreen()        returns xy coordinates of where an image is found on the screen
+                                combination lof locationOnScreen() and center()
+
+  center()                      returns the x-y coordinates of the center of a region
+                                pass a four-integer tuple
+
+  locate()                      returns four-integer tuple of first instance of needle in haystack
+  locateAll()                   returns a generator that yields four-integer tuples 
+                                  where the needle is found in the haystack
+
+    args for locate functions   
+      needleImage               image to search for
+      haystackImage             image to search through
+      grayscale=False           increase speed ~30%, but could lead to false-positive matches
+    
+  - locate functions are expensive
+  - use region=(four-intger tuple) search part of the screen rather than the full screen
+
+
+  FAILSAFE                      when True, moving mouse to upper-left raises FailSafeException
+  FAILSAFE_POINTS               
+  
+  G_LOG_SCREENSHOTS_FILENAMES   
+  
+  KEYBOARD_KEYS                 list of available key names 
+  KEY_NAMES                     list of available key names  
+  LEFT                          
+  LOG_SCREENSHOTS               
+  LOG_SCREENSHOTS_LIMIT         
+  MIDDLE                        
+  MINIMUM_DURATION              
+  MINIMUM_SLEEP                 
+  PAUSE                         wait time in secs after each pyag call
+  PRIMARY                       
+  Point                         
+  
+  QWERTY                        
+  QWERTZ                        
+  RIGHT                         
+  SECONDARY                     
+  Size                          
+  Window         
+
+  absolute_import               
+  
+  collections                   
+  collectionsSequence           
+  
+  countdown                     
+  datetime                      
+  
+  division                      
+  
+  failSafeCheck                 
+  functools                     
+  getActiveWindow               
+  getActiveWindowTitle          
+  getAllTitles                  
+  getAllWindows                 
+  getInfo                       
+  getPointOnLine                
+  getWindowsAt                  
+  getWindowsWithTitle           
+  grab                          
+
+  inspect                       
+  isShiftCharacter              
+  isValidKey                    
+  
+  linear                        
+  
+  os                            
+
+  pixel()                       returns the RGB value tuple of a pixel on screen                         
+  pixelMatchesColor()           checks if a pixel matches an RGB value tuple
+    tolerance=                  specifies how much the values can vary while still matching
+  platform                      
+  platformModule                
+  
+  printInfo                     
+  print_function                
+
+  pyscreeze                     
+  
+  re                            
+  
+  run                           
+    
+  sleep                         
+  sys                           
+  time                          
+
+
+exceptions  
+  FailSafeException             
+  ImageNotFoundException        
+  PyAutoGUIException            
+  raisePyAutoGUIImageNotFoundException
+  useImageNotFoundException                    
+  
+tweening mouse movement         fourth arg to move() and drag()
+  easeInBack                    
+  easeInBounce                  
+  easeInCirc                    
+  easeInCubic                   
+  easeInElastic                 
+  easeInExpo                    
+  easeInOutBack                 
+  easeInOutBounce               
+  easeInOutCirc                 
+  easeInOutCubic                
+  easeInOutElastic              
+  easeInOutExpo                 
+  easeInOutQuad                 
+  easeInOutQuart                
+  easeInOutQuint                
+  easeInOutSine                 
+  easeInQuad                    
+  easeInQuart                   
+  easeInQuint                   
+  easeInSine                    
+  easeOutBack                   
+  easeOutBounce                 
+  easeOutCirc                   
+  easeOutCubic                  
+  easeOutElastic                
+  easeOutExpo                   
+  easeOutQuad                   
+  easeOutQuart                  
+  easeOutQuint                  
+  easeOutSine
+
+
+Image object methods
+  _Image__transformer
+  __array_interface__
+  __class__
+  __copy__
+  __delattr__
+  __dict__
+  __dir__
+  __doc__
+  __enter__
+  __eq__
+  __exit__
+  __format__
+  __ge__
+  __getattribute__
+  __getstate__
+  __gt__
+  __hash__
+  __init__
+  __init_subclass__
+  __le__
+  __lt__
+  __module__
+  __ne__
+  __new__
+  __reduce__
+  __reduce_ex__
+  __repr__
+  __setattr__
+  __setstate__
+  __sizeof__
+  __str__
+  __subclasshook__
+  __weakref__
+  _close_exclusive_fp_after_loading
+  _copy
+  _crop
+  _dump
+  _ensure_mutable
+  _exif
+  _expand
+  _get_safe_box
+  _new
+  _repr_png_
+  _size
+  alpha_composite
+  category
+  close
+  convert
+  copy
+  crop
+  draft
+  effect_spread
+  entropy
+  filter
+  format
+  format_description
+  frombytes
+  fromstring
+  getbands
+  getbbox
+  getchannel
+  getcolors
+  getdata
+  getexif
+  getextrema
+  getim
+  getpalette
+  getpixel                      returns the RGB value of a pixel in a screenshot
+  getprojection
+  height
+  histogram
+  im
+  info
+  load
+  mode
+  offset
+  palette
+  paste
+  point
+  putalpha
+  putdata
+  putpalette
+  putpixel
+  pyaccess
+  quantize
+  readonly
+  reduce
+  remap_palette
+  resize
+  rotate
+  save
+  seek
+  show
+  size
+  split
+  tell
+  thumbnail
+  tobitmap
+  tobytes
+  toqimage
+  toqpixmap
+  tostring
+  transform
+  transpose
+  verify
+  width
+
+
+KEY_NAMES
+  \t                            tab key
+  \n                            enter key
+  \r
+  ' '                           spacebar ?
+  !
+  "
+  #
+  $
+  %
+  &
+  '
+  (
+  )
+  *
+  +
+  ,
+  -
+  .
+  /
+  0 - 9 in number row
+  :
+  ;
+  <
+  =
+  >
+  ?
+  @
+  [
+  \\
+  ]
+  ^
+  _
+  `
+  a - z
+  {
+  |
+  }
+  ~
+  accept
+  add
+  alt
+  altleft
+  altright
+  apps
+  backspace
+  browserback
+  browserfavorites
+  browserforward
+  browserhome
+  browserrefresh
+  browsersearch
+  browserstop
+  capslock
+  clear
+  convert
+  ctrl
+  ctrlleft
+  ctrlright
+  decimal
+  del
+  delete
+  divide
+  down
+  end
+  enter
+  esc
+  escape
+  execute
+  f1 - f24
+  final
+  fn
+  hanguel
+  hangul
+  hanja
+  help
+  home
+  insert
+  junja
+  kana
+  kanji
+  launchapp1
+  launchapp2
+  launchmail
+  launchmediaselect
+  left
+  modechange
+  multiply
+  nexttrack
+  nonconvert
+  num0
+  num1
+  num2
+  num3
+  num4
+  num5
+  num6
+  num7
+  num8
+  num9
+  numlock
+  pagedown
+  pageup
+  pause
+  pgdn
+  pgup
+  playpause
+  prevtrack
+  print
+  printscreen
+  prntscrn
+  prtsc
+  prtscr
+  return
+  right
+  scrolllock
+  select
+  separator
+  shift
+  shiftleft
+  shiftright
+  sleep
+  space
+  stop
+  subtract
+  tab
+  up
+  volumedown
+  volumemute
+  volumeup
+  win
+  winleft
+  winright
+  yen
+  command
+  option
+  optionleft
+  optionright
+

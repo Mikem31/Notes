@@ -1,0 +1,90 @@
+
+linux
+    How Linux Works - What Every Superuser Should Know
+    Awk Programming Language
+
+security plus
+    Prof Messer
+    CompTIA practice tests
+    Darril Gibson - Get Certified Get Ahead Security+
+
+
+
+******* STUFF TO WORK ON *******
+here-strings and here-documents
+comvert any uppercase letters in the replacement field in addNames.sed to lowercase
+
+
+******* PACKAGES OF INTEREST
+Samba server
+Seapile
+Pydio
+tldr    - command line tool
+emacs
+
+xmodmap
+x11-server-utils
+
+******** COMMANDLINE PRACTICE
+search for all symlinks in a dir
+search for files with sticky bit enabled
+show only hidden files with ls
+
+- how to tell what shell you are in         - echo $SHELL
+- what command to search (find, et al.)
+- remove aliases                            - unalias
+- how to edit .bashrc                       - vimbash alias
+
+******** FUTURE TOPICS
+website scraping
+YouTube downloader
+IPFire pfSense -> RPi router/firewall
+sed and awk
+
+
+******** SCRIPTING
+- backup user config files (vimrc, bashrc, profile, etc.)
+- list and then delete files/dir (safe delete?)
+- script that checks if app is installed; if so, gathers info on it
+
+
+******** INSTALLED SOFTWARE
+mlocate
+net-tools       - netstat
+vsftpd
+vim
+dnsutils
+psmisc          - process-related utilities
+gpart
+youtube-dl
+cups-pdf
+gv              - GNU gv PDF viewer
+a2ps            - Anything to PostScript
+enscript        - convert text files into PostScript, HTML, RTF, ANSI
+texinfo
+at              - delayed job execution
+curl
+
+dynamic DNS for Linux/Pi
+
+********** fresh PI install **********
+set static IP 133
+enable VNC server
+set VNC server password
+
+********** fresh VBox install ***********
+display resolution = 1920x 986
+
+******** VIMRC
+:imap ii <Esc>
+sudo cp /.vimrc /root/.vimrc
+
+obconf  - set mouse focus behavior
+
+******** ALIASES
+vimvim='vim ~/.vimrc'
+vimsee='cat ~/.vimrc'
+vimadd='cat ~/.vimrc; cat >> ~/.vimrc'
+
+vimbash='vim ~/.bashrc'
+addalias='vim ~/.bash_aliases'

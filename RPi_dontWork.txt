@@ -1,0 +1,8 @@
+sed usage
+
+echo {0..9}; echo {a..j} | sed 's/[a-f]/&&/g'       - does match
+echo {0..9}; echo {a..j} | sed 's/[0-9]/&&/g'       - does not match
+
+
+
+
