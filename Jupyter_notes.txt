@@ -9,6 +9,8 @@ VS Code check out:
   ipywidgets
 
   Jupyter Notebooks in Practice           https://www.datacamp.com/community/tutorials/tutorial-jupyter-notebook
+  Docs                                    https://jupyter-notebook.readthedocs.io/en/stable/comms.html
+
 
 Jupyter Notebook          https://jupyter.org/documentation
                           https://code.visualstudio.com/docs/python/jupyter-support

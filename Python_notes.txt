@@ -2777,17 +2777,14 @@ usage
 
 class Class1:                         class definition
     
-    var3 = 0                          class variable (shared among all instances)
-                                      variable can also be set per instance (added to instance namespace)
-    
-    var4 = 0
+    var3 = 0                          class attributes are assigned outside of __init__
+    var4 = 0                          same values all instances
 
     def __init__(self, var1, var2):
-      self.var1 = var1                instance variables (data is unique to each instance)
-      self.var2 = var2
+      self.var1 = var1                instance variables/attributes
+      self.var2 = var2                data is unique to each instance, passed during instantiation
       
       Class1.var3 += 1                class variable var3 incremented when __init__() is executed
-      
       
     def method1(self):                instance method (regular method)
         function statement
@@ -2802,8 +2799,8 @@ class Class1:                         class definition
         return cls(var1, var2)
 
     @staticmethod                     
-    def statmthd(var5):               do not pass anything (self or cls) into the method
-        function statement            do not operate on the instance or the class
+    def statmthd(var5):               does not pass anything (self or cls) into the method
+        function statement            does not operate on the instance or the class
 
 
 
