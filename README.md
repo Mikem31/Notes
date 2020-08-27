@@ -1,2 +1,2 @@
 # Notes
- Notes taken whilestudying various subjects
+ Notes taken while studying various subjects
